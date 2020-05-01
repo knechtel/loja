@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/loja/base.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="perfil" value="#{perfilMb.perfilAtual}"></ui:param>
+
+    <ui:define name="conteudo">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+
+            <img jsfc="h:graphicImage"  value="resources/loja/img/logo_acnf_agro_grd.png"/>
+            <!--
+            <h1 class="display-4">ACNF Agro</h1>
+            <h3>e-nota fiscal para o produtor rural</h3>
+            -->
+        </div>
+
+        <!-- Linha da Imagem Destaque-->
+
+        <div class="content">
+            <div class="row" style="margin-left: 0px; margin-right: 0px">
+                <div class="col-md-12">
+                    <img class="img-fluid curvas-1" jsfc="h:graphicImage"  value="resources/loja/img/acnf_agro_destaque.jpg"/>	
+                </div>
+            </div>
+        </div>
+
+        <!-- Textos 1 -->
+
+        <div class="content">
+            <div class="row" style="margin-left: 0px; margin-right: 0px">
+                <div class="col-md-12 padding-col">
+                    <p class="lead"><br/><b>ACNF AGRO: SOLUÇÃO EM NF-e.<br/>
+                            Pensada exclusivamente para atender produtores rurais</b><br/>
+                        <br/></p>
+                    <p class="paragrafo-apres-verde">Uma plataforma integrada para notas ﬁscais eletrônicas e personalizada para produtores rurais. <b>Buscamos atender os desaﬁos gerados pela mudança da legislação, adaptando nosso sistema para o dia-a-dia do produtor</b>. Em parceria com instituições que são referência no setor, oferecemos tecnologia de ponta e diferenciais exclusivos para exceder expectativas!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 Colunas - Ícones -->
+
+        <div class="content">
+            <div class="row" style="margin-left: 0px; margin-right: 0px">
+                <div class="col-md-4 padding-col text-center">
+                    <img jsfc="h:graphicImage"  value="resources/loja/img/ico_agro_offline.png" class="pb-2"/><br/>
+                    <p><b>MODO OFFLINE</b><br/>
+                        Emissão de notas onde você estiver, sem conexão com a internet.</p></div>
+                <div class="col-md-4 padding-col text-center">
+                    <img jsfc="h:graphicImage"  value="resources/loja/img/ico_agro_mobile.png" class="pb-2"/><br/>
+                    <p><b>INTEGRAÇÃO MOBILE</b><br/>
+                        Praticidade garantida com as funções do sistema na palma da sua mão.</p></div>
+                <div class="col-md-4 padding-col text-center">
+                    <img jsfc="h:graphicImage"  value="resources/loja/img/ico_agro_agilidade.png" class="pb-2"/><br/>
+                    <p><b>AGILIDADE</b><br/>
+                        Em todo o processo de documentos fiscais e atualizações em tempo real.</p></div>
+            </div>
+        </div>
+
+
+        <!-- Textos 2 -->
+
+        <div class="content">
+            <div class="row" style="margin-left: 0px; margin-right: 0px">
+                <div class="col-md-12 padding-col">
+                    <h4 class="titDestVerde">BENEFÍCIOS<br/>
+                        <small>Exclusivos assegurados pela ACNF Agro</small></h4>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 0px; margin-right: 0px">
+                <div class="padding-col">
+                    <h5>Armazenamento em Nuvem</h5>
+                    <p>Histórico e gerenciamento de documentos ﬁscais, com segurança garantida por criptograﬁa.<br/>
+                        <br/>
+                        <h5>Sincronização Cloud</h5>
+                        Sintonia biderecional do catálogo de produtos e impostos, para facilitar o micro e o macro gerenciamento da organização.<br/>
+                        <br/>
+                        <h5>Integração total SEFAZ</h5>
+                        Status das Notas ﬁscais junto a SEFAZ em tempo real e rastreamento para todos os CNPJs pertencentes à conta (individual ou em lotes).<br/>
+                        <br/>
+                        <h5>Agendamento, controle e alto desempenho de tarefas</h5>
+                        Automatização de consultas, extrações e envios de arquivos XML, garantindo operações com alta performance em todas as etapas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Textos 3 -->
+
+        <div class="linha-verde">
+            <div class="content">
+                <div class="row" style="margin-left: 0px; margin-right: 0px">
+                    <div class="col-md-12 padding-col">
+                        <h4 class="tit-amarelo">Funcionalidades adicionais</h4>
+                        <p class="text-white">
+                            Disponíveis para contratação no sistema <b>ACNF Agro</b>:<br/>
+                            <br/>
+                            <i class="fas fa-caret-right tit-amarelo pb-3"></i> <b>Painel completo</b>, com métricas para identiﬁcar possíveis falhas.<br/>
+                            <i class="fas fa-caret-right tit-amarelo pb-3"></i> <b>Gerenciamento de estoques</b> com transparência.<br/>
+                            <i class="fas fa-caret-right tit-amarelo pb-3"></i> <b>Gestão ﬁscal</b> e catálogo de impostos atualizado por especialistas.<br/>
+                            <i class="fas fa-caret-right tit-amarelo pb-3"></i> Armazenamento seguro de <b>certiﬁcados digitais</b>.<br/>
+                            <i class="fas fa-caret-right tit-amarelo pb-3"></i> Automação de <b>balança e carteira de notas</b> com soluções móveis.<br/>
+                            <h5 class="tit-amarelo">E muito mais!</h5>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha Final Conteúdo 2 Cols -->
+
+        <div class="content">
+            <div class="row pb-5" style="margin-left: 0px; margin-right: 0px">
+                <div class="col-md-6 padding-col text-center">
+                    <img jsfc="h:graphicImage"  value="resources/loja/img/logo_acnf_agro.png"/></div>
+                <div class="col-md-6 padding-col">
+                    <i class="fas fa-phone-alt pb-3"></i> (51) 3025 7636<br/>
+                    <i class="far fa-envelope pb-3"></i> <a href="mailto:acnfagro@acnf.com.br" target="_blank">acnfagro@acnf.com.br</a><br/>
+                    <i class="fas fa-globe pb-3"></i> <a href="http://www.acnf.com.br" target="_blank">www.acnf.com.br</a></div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

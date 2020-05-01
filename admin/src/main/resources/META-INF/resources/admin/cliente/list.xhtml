@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:p="http://primefaces.org/ui"
+              >
+
+
+    <p:dataTable value="#{clienteMb.lista}" var="item" paginator="true" rows="5" emptyMessage="Nenhum registro."
+                 styleClass="table table-striped tabela-prod-azul">
+
+        <p:column headerText="Parceiro">
+            <p:outputLabel value="#{item.parceiro.pessoa.nome}"/>
+        </p:column>
+        <p:column headerText="SKU" >
+            <p:outputLabel value="#{item.sku}" />
+        </p:column>
+
+        <p:column headerText="Tipo Pessoa">
+            <p:outputLabel value="#{item.pessoa.tipoPessoa.label}"/>
+        </p:column>
+
+        <p:column headerText="Nome\Nome Fantasia">
+            <p:outputLabel value="#{item.pessoa.nome}" rendered="#{'FISICA' eq item.pessoa.tipoPessoa}"/>
+            <p:outputLabel value="#{item.pessoa.nomeFantasia}" rendered="#{'JURIDICA' eq item.pessoa.tipoPessoa}"/>
+        </p:column>
+
+        <p:column headerText="Ações">
+            <p:commandButton value="Editar" actionListener="#{clienteMb.edit(item.idCliente)}" ajax="true"
+                             process="@this" update="@form">
+            </p:commandButton>
+            <p:commandButton value="Excluir" actionListener="#{clienteMb.delete(item.idCliente)}" ajax="true"
+                             process="@this" update="@form">
+                <p:confirm header="Confirmação" message="Deseja continuar?" icon="pi pi-exclamation-triangle"/>
+            </p:commandButton>
+        </p:column>
+
+    </p:dataTable>
+</ui:component>

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces" xmlns:P="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/admin/OnePageCrudTemplate.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="conteudo">
+        <script jsfc="h:outputScript">
+            $(document).ready(function () {
+                const input = document.getElementById('crudForm:parceiro_hinput');
+                $(input).bind("change", function (e) {
+                    console.log("sadfsafsd");
+                });
+            });
+
+        </script>
+
+        <p:panel header="Atualiza mensalidades. ">
+            <div class="ui-fluid">
+
+                <h:form>
+                    <p:fileUpload fileUploadListener="#{fileMb.handleFileUpload}" mode="advanced"
+                                  dragDropSupport="false"
+                                  update="messages,teste" sizeLimit="100000" fileLimit="3"/>
+
+                    <p:growl id="messages" showDetail="true"/>
+
+                    <p:commandButton value="Submit" ajax="true" action="#{fileMb.upload}" disabled="true"/>
+
+                    <p:dataTable id="teste" value="#{fileMb.listPagamentoBoleto}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Codigo de pagamento:"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoMovimento}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Reftran"/>
+                            </f:facet>
+                            <h:outputText value="#{item.refTran}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Data de vencimento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataVencimento}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </div>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>

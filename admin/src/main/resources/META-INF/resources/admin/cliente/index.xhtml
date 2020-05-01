@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/templates/admin/CrudTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="managedBean" value="#{clienteMb}"></ui:param>
+
+    <ui:define name="list">
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"  icon="pi pi-check" ajax="true"  process="@this" update="@form" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+        </p:confirmDialog>
+        <ui:include src="list.xhtml"></ui:include>
+    </ui:define>
+
+    <ui:define name="createEdit">
+        <ui:include src="form.xhtml"></ui:include>
+    </ui:define>
+</ui:composition>

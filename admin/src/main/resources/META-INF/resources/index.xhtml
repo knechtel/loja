@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/WEB-INF/templates/admin/base.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="body">
+        <!-- Linha 4 - Ranking Top 5 e Vendas - 2 Cols -v1 -->
+        <h:panelGroup rendered="#{sessionMB.userAdmin}">
+            <p:dataTable value="#{resumoAcertsisMb.resumos}" var="item" paginator="true" rows="5" emptyMessage="Nenhum registro."
+                         styleClass="table table-striped tabela-prod-azul">
+                <f:facet name="header">
+                    <h:outputText value="Resumo Acertsis"/>
+                </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Parceiro"/>
+                    </f:facet>
+                    <h:outputText value="#{item.parceiro.pessoa.nome}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Venda Prevista"/>
+                    </f:facet>
+                    <h:outputText value="#{item.vendaPrevista}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Venda Realizada"/>
+                    </f:facet>
+                    <h:outputText value="#{item.vendaRealizada}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Renovações Previstas"/>
+                    </f:facet>
+                    <h:outputText value="#{item.renovacoesPrevistas}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Renovações Relizadas"/>
+                    </f:facet>
+                    <h:outputText value="#{item.renovacoesRelizadas}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Inadimplentes"/>
+                    </f:facet>
+                    <h:outputText value="#{item.inadimplentes}"/>
+                </p:column>
+            </p:dataTable>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{sessionMB.userParceiro}">
+            <div class="linha100pc-cinza">
+                <div class="content bg-cinza-cl">
+                    <div class="row pt-4 pb-2" style="margin-left: 0px; margin-right: 0px">
+                        <div class="col-md-7 text-left">
+
+                            <div class="card card-alt-390">
+                                <div class="card-body">
+                                    <h5 class="card-title titDest-1">RANKING - TOP FIVE</h5>
+                                    <p class="card-text">Listagem com os cinco campeões de vendas.</p>
+
+                                    <table class="table">
+                                        <tr>
+                                            <td colspan="2">
+                                                <ol>
+                                                    <ui:repeat value="#{dashboard.lstVendasCurrentMonth}" var="parceiro">
+                                                        <li>#{parceiro.pessoa.nome}</li>
+                                                    </ui:repeat>
+                                                </ol>
+                                            </td>
+                                            <td rowspan="2">
+                                                <ui:include src="pieChart.xhtml"></ui:include>
+                                                <!--                                            <img jsfc="h:graphicImage"  value="/resources/admin/img/grafico_torta_placeholder.gif" class="img-fluid"/>-->
+                                            </td>
+
+                                        </tr>
+                                        <td>
+                                            <h6>SUA POSIÇÃO FRENTE AO MELHOR COLOCADO:</h6>
+                                            #{dashboard.posicaoUsuarioLogado} - #{dashboard.nomeUsuarioLogado}
+                                        </td>
+
+                                        <tr>
+
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-5 text-left">
+                            <div class="card card-alt-390">
+                                <div class="card-body">
+                                    <h5 class="card-title titDest-1">VENDAS</h5>
+                                    <p class="card-text">Lista dos  maiores vendedores no ano.</p>
+
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+
+                                                <ol>
+                                                    <ui:repeat value="#{dashboard.lstVendasCurrentYear}" var="cliente">
+                                                        <li>#{cliente.pessoa.nome}</li>
+                                                    </ui:repeat>
+                                                </ol>
+                                            </td>
+
+                                            <td>
+                                                <ui:include src="barChart.xhtml"></ui:include>
+                                                <!--                                            <img jsfc="h:graphicImage"  value="/resources/admin/img/grafico_barras_placeholder.gif" class="img-fluid"/><br/>-->
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Linha 5 - Potencial de venda no mês - 1 Col -->
+
+            <div class="linha100pc-cinza">
+                <div class="content bg-cinza-cl">
+                    <div class="row pt-4 pb-2" style="margin-left: 0px; margin-right: 0px">
+
+                        <div class="col-md-12 text-left">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title titDest-1">POTENCIAL DE VENDAS NO MÊS</h5>
+                                    <p class="card-text">Tabela demonstrando a quantidade máxima de vendas possível em cada mês.</p>
+
+
+                                    <table class="table table-striped tabela-prod-azul">
+                                        <thead class="tab-top-azul-esc">
+                                            <tr>
+                                                <th scope="col">Mês/Ano</th>
+                                                <th scope="col">Quantidade de NFEs vendidas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat value="#{dashboard.lstContratoLastMonths}" var="potencialDTO">
+                                                <tr>
+                                                    <th scope="col" class="txt-cinza-med">#{potencialDTO.data}</th>
+                                                    <td>#{potencialDTO.qtd}</td>
+                                                </tr>
+                                            </ui:repeat>
+                                            <!--                                            <tr>-->
+                                            <!--                                                <th scope="col" class="txt-cinza-med">Janeiro</th>-->
+                                            <!--                                                <td>XXXXX</td>-->
+                                            <!--                                            </tr>-->
+                                            <!--                                            <tr>-->
+                                            <!--                                                <th scope="col" class="txt-cinza-med">Fevereiro</th>-->
+                                            <!--                                                <td>XXXXX</td>-->
+                                            <!--                                            </tr>-->
+                                            <!--                                            <tr>-->
+                                            <!--                                                <th scope="col" class="txt-cinza-med">Março</th>-->
+                                            <!--                                                <td>XXXXX</td>-->
+                                            <!--                                            </tr>-->
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Linha 6 - Comissões - 1 Col -->
+
+            <!--        <div class="linha100pc-cinza">-->
+            <!--            <div class="content bg-cinza-cl">-->
+            <!--                <div class="row pt-4 pb-2" style="margin-left: 0px; margin-right: 0px">-->
+
+            <!--                    <div class="col-md-12 text-left">-->
+
+            <!--                        <div class="card">-->
+            <!--                            <div class="card-body">-->
+            <!--                                <h5 class="card-title titDest-1">COMISSÕES</h5>-->
+            <!--                                <p class="card-text">Lista com a situação atualizada do comissionamento dos parceiros.</p>-->
+
+
+            <!--                                <table class="table table-striped tabela-prod-azul">-->
+            <!--                                    <thead class="tab-top-azul-esc">-->
+            <!--                                        <tr>-->
+            <!--                                            <th scope="col">Mês</th>-->
+            <!--                                            <th scope="col">Valor</th>-->
+            <!--                                            <th scope="col">Status</th>-->
+            <!--                                        </tr>-->
+            <!--                                    </thead>-->
+            <!--                                    <tbody>-->
+            <!--                                        <tr>-->
+            <!--                                            <th scope="col" class="txt-cinza-med">Janeiro/2019</th>-->
+            <!--                                            <td>R$ XXXXX,00</td>-->
+            <!--                                            <td>PAGO</td>-->
+            <!--                                        </tr>-->
+            <!--                                        <tr>-->
+            <!--                                            <th scope="col" class="txt-cinza-med">Fevereiro/2019</th>-->
+            <!--                                            <td>R$ XXXXX,00</td>-->
+            <!--                                            <td>PAGO</td>-->
+            <!--                                        </tr>-->
+            <!--                                        <tr>-->
+            <!--                                            <th scope="col" class="txt-cinza-med">Março/2019</th>-->
+            <!--                                            <td>R$ XXXXX,00</td>-->
+            <!--                                            <td>PENDENTE</td>-->
+            <!--                                        </tr>-->
+            <!--                                        <tr>-->
+            <!--                                            <th scope="col" class="txt-cinza-med">Abril/2019</th>-->
+            <!--                                            <td>R$ XXXXX,00</td>-->
+            <!--                                            <td>PENDENTE</td>-->
+            <!--                                        </tr>-->
+            <!--                                    </tbody>-->
+            <!--                                </table>-->
+
+
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+
+
+
+            <!-- Linha 7 - Quantidade de NFs para renovar - 1 Col -->
+
+            <div class="linha100pc-cinza">
+                <div class="content bg-cinza-cl">
+                    <div class="row pt-4 pb-2" style="margin-left: 0px; margin-right: 0px">
+
+                        <div class="col-md-12 text-left">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title titDest-1">QUANTIDADE DE NOTAS FISCAIS ELETRÔNICAS PÓS-PAGAS PARA RENOVAR</h5>
+                                    <p class="card-text">Lista com a situação das notas.</p>
+
+
+                                    <table class="table table-striped  tabela-prod-azul">
+                                        <thead class="tab-top-azul-esc">
+                                            <tr>
+                                                <th scope="col">Quantidade</th>
+                                                <th scope="col">Mês/Ano</th>
+                                                <th scope="col">Valor da comissão</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat value="#{dashboard.lstPlanosParaRenovar}" var="planoRenovacao">
+                                                <tr>
+                                                    <th scope="col" class="txt-cinza-med">#{planoRenovacao.quantidade}</th>-
+                                                    <td>#{planoRenovacao.mes}</td>
+                                                    <td>#{planoRenovacao.valorComissao}</td>
+                                                </tr>
+                                            </ui:repeat>
+
+
+                                            <!--                                        <tr>-->
+                                            <!--                                            <th scope="col" class="txt-cinza-med">XXXXX</th>-->
+                                            <!--                                            <td>Janeiro/2020</td>-->
+                                            <!--                                            <td>XX%</td>-->
+                                            <!--                                            <td>R$ XXXX,00</td>-->
+                                            <!--                                        </tr>-->
+                                            <!--                                        <tr>-->
+                                            <!--                                            <th scope="col" class="txt-cinza-med">XXXXX</th>-->
+                                            <!--                                            <td>Fevereiro/2020</td>-->
+                                            <!--                                            <td>XX%</td>-->
+                                            <!--                                            <td>R$ XXXX,00</td>-->
+                                            <!--                                        </tr>-->
+                                            <!--                                        <tr>-->
+                                            <!--                                            <th scope="col" class="txt-cinza-med">XXXXX</th>-->
+                                            <!--                                            <td>Março/2020</td>-->
+                                            <!--                                            <td>XX%</td>-->
+                                            <!--                                            <td>R$ XXXX,00</td>-->
+                                            <!--                                        </tr>-->
+                                            <!--                                        <tr>-->
+                                            <!--                                            <th scope="col" class="txt-cinza-med">XXXXX</th>-->
+                                            <!--                                            <td>Abril/2020</td>-->
+                                            <!--                                            <td>XX%</td>-->
+                                            <!--                                            <td>R$ XXXX,00</td>-->
+                                            <!--                                        </tr>-->
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Linha 8 - Cliente inadimplência - 1 Col -->
+
+            <div class="linha100pc-cinza">
+                <div class="content bg-cinza-cl">
+                    <div class="row pt-4 pb-5" style="margin-left: 0px; margin-right: 0px">
+
+                        <div class="col-md-12 text-left">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title titDest-1">CLIENTE INADIMPLÊNCIA</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+                                    <table class="table table-striped  tabela-prod-azul">
+                                        <thead class="tab-top-azul-esc">
+                                            <tr>
+                                                <th scope="col">Quantidade de boletos não pagos</th>
+                                                <th scope="col">Mês</th>
+                                                <th scope="col">Nome do cliente</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Não há clientes inadimplentes</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

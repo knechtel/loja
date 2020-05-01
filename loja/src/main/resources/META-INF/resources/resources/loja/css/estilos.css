@@ -1,0 +1,326 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.content {
+    max-width: 940px;
+    display: block;
+    margin: auto;
+}
+
+.content100p {
+	width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.backg-cinza-claro {
+    background-color: #f3f3f3;
+}
+
+.backg-cinza-medio {
+    background-color: #dcdcdc;
+}
+
+.backg-azul-esc {
+	background-color: #001940;
+}
+
+.backg-valor-1 {
+	background-color: #ffe9c8;
+}
+
+.destaque1 {
+    width: 100%;
+    border: none;
+    border-width: 1px;
+    border-color: #007bff;
+    background-color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+}
+
+.padding-col {
+ padding: 25px;
+}
+
+.botao-100pc {
+    width: 90%;
+    border-radius: 10px;
+    display: block;
+    margin:auto;
+}
+
+.botao-60pc {
+    width: 60%;
+    border-radius: 10px;
+    display: block;
+    margin:auto;
+}
+
+.paragrafo-prod-azul {
+	border-top-style: solid;
+	border-top-width: 4px;
+	border-top-color: #007cbe;
+	padding-top: 12px;
+}
+
+.paragrafo-apres-azul {
+	border-top-style: solid;
+	border-top-width: 2px;
+	border-top-color: #007cbe;
+	padding-top: 12px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #007cbe;
+	padding-bottom: 24px;
+	margin-bottom: 50px;
+}
+
+.paragrafo-apres-verde {
+	border-top-style: solid;
+	border-top-width: 2px;
+	border-top-color: #00a45d;
+	padding-top: 12px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #00a45d;
+	padding-bottom: 24px;
+}
+
+.paragrafo-checkout {
+	border-top-style: solid;
+	border-top-width: 2px;
+	border-top-color: #007cbe;
+	padding-top: 12px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #007cbe;
+	padding-bottom: 12px;
+}
+
+.paragrafo-prod-verde {
+	border-top-style: solid;
+	border-top-width: 4px;
+	border-top-color: #00a45d;
+	padding-top: 12px;
+}
+
+.paragrafo-tabs-cinza {
+	padding-top: 12px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #c5c5c5;
+	padding-bottom: 24px;
+}
+
+.tabela-prod-azul {
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #007cbe;
+}
+
+.tabela-prod-verde {
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #00a45d;
+}
+
+.contato-form1 {
+  max-width: 800px;
+}
+
+.bgImg1 {
+	background-image: url("../img/bg_img1.jpg");
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+.bgImg2 {
+	background-image: url("../img/bg_img2.jpg");
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+.bgImg3 {
+	background-image: url("../img/bg_img3.jpg");
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+
+.paragrafo-contatos {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #FFFFFF;
+    padding-top: 12px;
+}
+
+.link-branco-12 {
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+	color: #FFFFFF;
+	font-size: 12px;
+	padding-right: 10px;
+}
+
+.link-branco-12:hover {
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+.card-alt-300 {
+	min-height: 300px;
+}
+
+.bt-comprar {
+	color: #fff;
+    background-color: #d8932e;
+    border-color: #d8932e;
+}
+
+.detalhe-Pedido {
+    display: block;
+    margin: auto;
+    max-width: 900px;
+}
+
+.NovaConsulta {
+	width: 100%;
+	display: block;
+	margin: auto;
+	text-align: left;
+}
+
+.titDest-1 {
+    border-left-style: solid;
+    border-left-width: 10px;
+    border-left-color: #367fa9;
+	padding-left: 10px;
+}
+
+
+
+.titDest1 {
+	border-left-style: solid;
+	border-left-width: 10px;
+	border-left-color: #007bff;
+	padding-left: 12px;
+}
+
+
+.status-etiq {
+	padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+	font-weight: normal;
+	min-width: 100px;
+}
+
+.tab-top-azul-esc {
+    color: #FFFFFF;
+    background-color: #a0a0a0;
+    border-color: #a0a0a0;
+}
+
+.bot-Cadastro {
+	width: 100%;
+	text-align: right;
+}
+
+.bt-SaibaMais-ACNF {
+	color: #fff;
+    background-color: #007cbe;
+    border-color: #007cbe;
+}
+
+.bt-SaibaMais-ACNF-Agro {
+	color: #fff;
+    background-color: #00a45d;
+    border-color: #00a45d;
+}
+
+.curvas-1 {
+	border-radius: 0.5rem !important;
+}
+
+.titDestVerde {
+    border-left-style: solid;
+    border-left-width: 10px;
+    border-left-color: #00a45d;
+    padding-left: 12px;
+}
+
+.titDestAzulEsc {
+    border-left-style: solid;
+    border-left-width: 10px;
+    border-left-color: #007cbe;
+    padding-left: 12px;
+}
+
+.linha-verde {
+	width: 100%;
+	background-image: url("../img/acnf_agro_bg1.jpg");
+	background-position: center top;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.linha-azul {
+	width: 100%;
+	background-image: url("../img/acnf_bg1.jpg");
+	background-position: center top;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.tit-amarelo {
+	color: #f1e433;
+}
+
+.planos-header {
+    max-width: 800px;
+}
+
+.lead1 {
+    font-size: 1.00rem;
+    font-weight: 300;
+}
+
+.txtListItem {
+	font-size: 15px;
+}
+
+.titAzulMar {
+	color: #0c48c7;
+}
+
+
+@media screen and (max-width: 576px) {
+ 
+	.card-alt-300 {
+		min-height: inherit;
+}
+
+	.bgImg1 {
+		background-size: cover;
+}
+	
+	
+}
+
+
+@media screen and (max-width: 768px) {
+ 
+	.hideSmall {
+	display: none;
+}
+	
+	
+}
+

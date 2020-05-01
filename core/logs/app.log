@@ -1,0 +1,20 @@
+2019-10-10 19:36:02,274 INFO br.com.acertsis.loja.TestGeraNumContrato [main] Starting TestGeraNumContrato on Maiquels-MBP with PID 85880 (started by maiquelknechtel in /Users/maiquelknechtel/Documents/code/acnf-loja/projeto-loja/core)
+2019-10-10 19:36:02,275 INFO br.com.acertsis.loja.TestGeraNumContrato [main] The following profiles are active: prod
+2019-10-10 19:36:20,523 INFO br.com.acertsis.loja.service.ContaPlataformaService [scheduling-1] ROTINA DE CRIAÇÃO DE CONTAS ->(INÍCIO)
+2019-10-10 19:36:20,536 INFO br.com.acertsis.loja.TestGeraNumContrato [main] Started TestGeraNumContrato in 18.976 seconds (JVM running for 20.249)
+2019-10-10 19:36:20,801 INFO br.com.acertsis.loja.service.ContaPlataformaService [main] ROTINA DE CRIAÇÃO DE CONTAS ->(INÍCIO)
+2019-10-10 19:36:20,957 INFO br.com.acertsis.loja.service.ContaPlataformaService [scheduling-1] Não existe nenhuma conta a ser criada!
+2019-10-10 19:36:20,957 INFO br.com.acertsis.loja.service.ContaPlataformaService [scheduling-1] ROTINA DE CRIAÇÃO DE CONTAS ->(FIM)
+2019-10-10 19:36:21,144 INFO br.com.acertsis.loja.service.ContaPlataformaService [main] Não existe nenhuma conta a ser criada!
+2019-10-10 19:36:21,145 INFO br.com.acertsis.loja.service.ContaPlataformaService [main] ROTINA DE CRIAÇÃO DE CONTAS ->(FIM)
+2019-10-10 19:36:28,975 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] Cannot delete or update a parent row: a foreign key constraint fails (`acnf_loja`.`endereco`, CONSTRAINT `fk_pessoaendereco` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoa` (`id_pessoa`))
+2019-10-10 19:36:28,978 ERROR org.hibernate.internal.ExceptionMapperStandardImpl [main] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2019-10-10 19:36:29,610 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [main] Duplicate entry '25.135.171/0001-59' for key 'UK_3h78rtw3ei11cb43k77af5nhl'
+2019-10-10 19:36:29,799 INFO br.com.acertsis.loja.service.ResumoAcertsisServiceTest [main] Starting ResumoAcertsisServiceTest on Maiquels-MBP with PID 85880 (started by maiquelknechtel in /Users/maiquelknechtel/Documents/code/acnf-loja/projeto-loja/core)
+2019-10-10 19:36:29,800 INFO br.com.acertsis.loja.service.ResumoAcertsisServiceTest [main] The following profiles are active: prod
+2019-10-10 19:36:39,277 INFO br.com.acertsis.loja.service.ContaPlataformaService [scheduling-1] ROTINA DE CRIAÇÃO DE CONTAS ->(INÍCIO)
+2019-10-10 19:36:39,286 INFO br.com.acertsis.loja.service.ResumoAcertsisServiceTest [main] Started ResumoAcertsisServiceTest in 9.523 seconds (JVM running for 39.0)
+2019-10-10 19:36:39,524 INFO br.com.acertsis.loja.service.ContaPlataformaService [scheduling-1] Não existe nenhuma conta a ser criada!
+2019-10-10 19:36:39,525 INFO br.com.acertsis.loja.service.ContaPlataformaService [scheduling-1] ROTINA DE CRIAÇÃO DE CONTAS ->(FIM)
+2019-10-10 19:54:14,680 INFO br.com.acertsis.loja.TestGeraNumContrato [main] Starting TestGeraNumContrato on Maiquels-MBP with PID 86265 (started by maiquelknechtel in /Users/maiquelknechtel/Documents/code/acnf-loja/projeto-loja/core)
+2019-10-10 19:54:14,682 INFO br.com.acertsis.loja.TestGeraNumContrato [main] The following profiles are active: prod

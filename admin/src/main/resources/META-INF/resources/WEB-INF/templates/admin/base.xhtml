@@ -1,0 +1,163 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="#{layoutMB.template}"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+                >
+
+    <ui:param name="renderBreadCrumb" value="true"/>
+
+    <ui:define name="head">
+        <title>Dashboard</title>
+        <!-- Custom CSS -->
+        <link href="#{request.contextPath}/resources/admin/css/estilos.css" rel="stylesheet"/>
+        <!-- Font Awesome - Load all styles -->
+        <link href="#{request.contextPath}/resources/admin/css/all.css" rel="stylesheet"/>
+        <style>
+            .main-footer {
+                padding: 0px !important;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"
+        integrity="sha256-U0YLVHo5+B3q9VEC4BJqRngDIRFCjrhAIZooLdqVOcs=" crossorigin="anonymous"></script>
+        <script src="#{request.contextPath}/resources/js/primefaces-locales.js"></script>
+        <script>
+            function adicionarMascaraDinheiro() {
+              $('.moneyInput').maskMoney().maskMoney({
+                prefix: '',
+                allowNegative: false,
+                thousands: '.',
+                decimal: ',',
+                affixesStay: false
+              });
+            }
+
+            $(document).ready(function () {
+              adicionarMascaraDinheiro();
+            });
+            function toUpperCase(value) {
+              if (value != undefined) {
+                return value.toLowerCase();
+              }
+            }
+        </script>
+    </ui:define>
+
+    <ui:define name="top-menu">
+        <ui:include src="top-menu.xhtml"/>
+    </ui:define>
+
+    <ui:define name="logo-lg">
+        <img jsfc="h:graphicImage" value="/resources/admin/img/logo_acertsis_branco.png"/>
+    </ui:define>
+
+    <ui:define name="menu">
+        <ul class="sidebar-menu" data-widget="tree">
+            <li>
+                <a jsfc="p:link" outcome="/index.xhtml" onclick="clearBreadCrumbs()">
+                    <i class="fa fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a jsfc="p:link" outcome="/admin/venda/index.xhtml">
+                    <i class="fa fa-home"></i>
+                    <span>Venda Rápida</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/minhasVendas/index.xhtml">
+                    <i class="fa fa-home"></i>
+                    <span>Minhas Vendas</span>
+                </a>
+            </li>
+
+            <li class="header">
+                Cadastros
+            </li>
+            <li>
+                <a jsfc="p:link" outcome="/admin/categoria/index.xhtml" rendered="#{sessionMB.userAdmin}">
+                    <i class="fa fa-book"></i>
+                    <span>Categoria</span>
+                </a>
+            </li>
+            <li>
+                <a jsfc="p:link" outcome="/admin/produto/index.xhtml" rendered="#{sessionMB.userAdmin}">
+                    <i class="fa fa-car"></i>
+                    <span>Produtos</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/modulo/index.xhtml" rendered="#{sessionMB.userAdmin}">
+                    <i class="fa fa-table"></i>
+                    <span>Modulos</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/plano/index.xhtml" rendered="#{sessionMB.userAdmin}">
+                    <i class="fa fa-file-text"></i>
+                    <span>Planos</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/cliente/index.xhtml" >
+                    <i class="fa fa-car"></i>
+                    <span>Clientes</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/parceiro/index.xhtml" rendered="#{sessionMB.userAdmin}" >
+                    <i class="fa fa-users"></i>
+                    <span>Parceiros</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/comissaoParceiro/index.xhtml" rendered="#{sessionMB.userAdmin}">
+                    <i class="fa fa-money"></i>
+                    <span>Comissão dos Parceiros</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/usuario/index.xhtml" rendered="#{sessionMB.userAdmin}">
+                    <i class="fa fa-users"></i>
+                    <span>Usuários</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/mensalidade/index.xhtml">
+                    <i class="fas fa-comment-dollar"></i>
+                    <span>Mensalidades pendentes</span>
+                </a>
+            </li>
+
+            <li>
+                <a jsfc="p:link" outcome="/admin/mensalidade/loadFile.xhtml">
+                    <i class="fas fa-comment-dollar"></i>
+                    <span>Baixa de Boletos</span>
+                </a>
+            </li>
+
+        </ul>
+    </ui:define>
+    <ui:define name="footer">
+        <div class="row bg-azul-esc" style="margin-left: 0px; margin-right: 0px">
+            <div class="col-md-12 text-white text-center">
+                <br/><small class="link-branco-12">Desenvolvido por:</small><br/>
+                <p class="link-branco-12">Acertsis Fábrica de Software &#169; 2019</p><br/>
+                <a href="http://www.acertsis.com.br" class="link-branco-12" target="_blank">www.acertsis.com.br</a><br/>
+                <br/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

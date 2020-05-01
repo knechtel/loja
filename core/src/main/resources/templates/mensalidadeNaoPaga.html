@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mensalidade Vencida - Acertsis</title>
+
+	
+<style>
+
+.top-image {
+  background-image: url("http://demo.acnf.com.br/email_acertsis/top_pgto_uncheck.jpg");
+  background-color: #0a2143;
+  height: 192px;
+  background-position: center top;
+  background-repeat: no-repeat;
+  /* background-size: cover;  Resize the background image to cover the entire container */
+}
+
+.tit-1 {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-size: 22px;
+	color: #216788;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	}
+
+.txt-1 {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-size: 14px;
+	line-height: 20px;
+	color: #000000;
+	}
+
+.txt-2 {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-size: 11px;
+	line-height: 16px;
+	color: #000000;
+	text-align: center;
+	}
+
+.msg {
+	display: block;
+	margin: auto;
+	width: 80%;
+	}
+
+.linkAzul {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-size: 12px;
+	font-weight: bold;
+	color: #26569e;
+	text-decoration: underline;
+	}
+	
+</style>	
+
+</head>
+
+<body>
+
+<table style="width: 100%; padding: 0px; margin: 0px; border-collapse: collapse">	
+	<tr>
+		<td style="height: 5px; background-color: #b6ddf0">
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 88px; text-align: center">
+		<img src="http://demo.acnf.com.br/email_acertsis/logo_acertsis.jpg"></td>
+	</tr>
+	<tr>
+		<td class="top-image">&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="msg">
+				<h1 class="tit-1">
+				OLÁ ${cliente.pessoa.nome}, ESTE É UM AVISO AUTOMÁTICO QUE SUA PARCELA VENCEU EM 05/09/2019.</h1>
+
+				<p class="txt-1">
+				<b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</b><br>
+				<br>
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+				<br>
+				<!--<b>DETALHES DO CONTRATO</b><br>
+				<br>
+				<b>PLANO:</b> Pré-pago / Pós-pago<br>
+				<b>Data de aquisição:</b> 02 de Fevereiro de 2019<br>
+				<b>PRODUTO:</b> ACNF / ACNF Agro / Certificado Digital<br> 
+				<b>FORMA DE PAGAMENTO:</b>Cartão de crédito parcelado em XX vezes<br>
+				<br>--></p>
+				<a href="http://www.acnf.com.br" target="_blank"><button style="cursor: pointer; background-color: #4271ba; border: solid; border-width: 1px; border-color: #2e4e81; border-radius: 5px; width: 268px; height: 40px; color: #FFFFFF">EMITIR SEGUNDA VIA DO BOLETO</button></a><br>
+				<br>
+				<br>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 5px; background-color: #d8932e">
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 44px; background-color: #f5e4cb; text-align: right; padding-right: 25px;">
+		<a href="http://www.acnf.com.br" class="linkAzul" target="_blank">www.acertsis.com.br</a> | <a href="http://www.acnf.com.br" class="linkAzul" target="_blank">www.acnf.com.br</a></td>
+	</tr>
+	<tr>
+		<td>
+		<div class="msg">
+		<p class="txt-2">
+		<b>OBSERVAÇÕES</b><br>
+		Você recebeu este e-mail em virtude da contratação do plano lorem ipsum dolor sit amet, consectetur adipiscing elit.
+		Duis aute irure dolor in voluptate velit esse dolore eu fugiat proident.</p>
+		</div></td>
+	</tr>
+</table>
+
+</body>
+</html>

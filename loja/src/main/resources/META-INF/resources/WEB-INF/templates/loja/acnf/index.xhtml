@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <div class="col-md-12 text-white bgImg1">
+            <div class="pricing-header2 px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+                <div class="row">
+                    <div class="col-md-3">
+                        <br/>
+                        <img jsfc="h:graphicImage"  value="resources/loja/img/logo_acnf_branco.png" class="float-left img-fluid" /></div>
+
+                    <div class="col-md-9">
+                        <h1 class="display-4">e-Nota Fiscal <small style="font-size: 60%;">para o seu negócio.</small></h1>
+                        <p class="lead1">Uma plataforma integrada para notas fiscais eletrônicas e personalizada para você empreendedor. <b>Buscamos atender os desafios gerados pela mudança da legislação, adaptando nosso sistema para o seu dia a dia</b>. Oferecemos tecnologia de ponta e diferenciais exclusivos para exceder expectativas!</p>
+                        <a href="acnf.xhtml" target="_self"><button type="button" class="btn btn-primary float-right">Clique aqui para saber mais!</button></a>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destaque 2a - Linha 2 colunas -->
+
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6 padding-col">
+                <h4 class="titAzulMar">Alta performance de desempenho!</h4>
+                <h4 class="titAzulMar"><small>Segurança e agilidade para as suas operações.</small></h4>
+                <div class="destaque1 padding-col">
+                    <img jsfc="h:graphicImage"  value="resources/loja/img/banner_home.gif" class="img-fluid" /></div>
+            </div>
+            <div class="col-md-6 padding-col">
+                <h4>BENEFÍCIOS <small><br/>
+                        Exclusivos assegurados pela ACNF</small></h4>
+                <ul>
+                    <li class="txtListItem"><b>Armazenamento em nuvem:</b> Histórico e gerenciamento de documentos fiscais, com segurança garantida por criptografia.</li>
+                    <li class="txtListItem"><b>Sincronização Cloud:</b> Sintonia bidirecional do catálogo de produtos e impostos, para facilitar o micro e o macro gerenciamento da organização.</li>
+                    <li class="txtListItem"><b>Integração total SEFAZ:</b> Status das Notas Fiscais junto a SEFAZ em tempo real e rastreamento para todos os CNPJs pertencentes à conta (individual ou em lotes).</li>
+                    <li class="txtListItem"><b>Agendamento, controle e alto desempenho de tarefas:</b> Automatização de consultas, extrações e envios de arquivos XML, garantindo operações com alta performance em todas as etapas.</li>
+                </ul>
+                <a href="acnf.xhtml" target="_self"><button type="button" class="btn btn-primary botao-100pc mb-4">Clique Aqui</button></a>
+            </div>
+        </div>
+    </div>
+    <!-- Destaque 2b - Linha 5 colunas -->
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <div class="col-md-12 bg-light">
+            <div class="content pb-4">
+                <div style="display: block; margin: auto" class="text-center">
+                    <h4 class="pt-4">COMPRE AGORA MESMO!</h4>
+                    <p>Com apenas alguns cliques você escolhe o produto ideal para atender às suas necessidades.</p>
+                </div>
+                <div class="row pt-4 pb-4" jsfc="h:panelGroup" id="panelCompra">
+
+                    <div class="col-sm" style="padding-right: 5px; padding-left: 5px;" >
+                        <div class="card card-alt-300 shadow">
+                            <div class="card-body paineisCompra">
+                                <h4 class="card-title">Pessoa</h4>
+                                <hr/>
+                                <h:selectOneRadio id="planoTipoPessoa"  layout="pageDirection" styleClass="form-check"
+                                                  value="#{planoMb.tipoPessoa}">
+                                    <f:selectItems  class="form-check-input" value="#{dataProviderMb.tiposPessoa}" var="c"
+                                                    itemLabel="#{c.label}" itemValue="#{c}" >
+                                    </f:selectItems>
+                                    <p:ajax event="change"  process="panelCompra" update="panelCompra formDialogLoja"   />
+                                </h:selectOneRadio>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div  class="col-sm" style="padding-right: 5px; padding-left: 5px;" >
+                        <div jsfc="h:panelGroup" id="panelProduto"  class="card card-alt-300 shadow">
+                            <div class="card-body paineisCompra">
+                                <h4 class="card-title">Produto</h4>
+                                <hr/>
+                                <h:selectOneRadio id="produto"  layout="pageDirection" styleClass="form-check"
+                                                  value="#{planoMb.produtoSelecionado}" converter="#{produtoConverter}">
+                                    <f:selectItems class="form-check-input" value="#{dataProviderMb.produtos}" var="c"
+                                                   itemLabel="#{c.nome}" itemValue="#{c}" >
+                                    </f:selectItems>
+                                    <p:ajax event="change" listener="#{planoMb.onSelectProduto}" process="panelCompra formDialogLoja" update="panelCompra formDialogLoja"   />
+                                </h:selectOneRadio>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm" style="padding-right: 5px; padding-left: 5px;">
+                        <div class="card card-alt-300 shadow">
+                            <div class="card-body paineisCompra">
+                                <h4 class="card-title">Plano</h4>
+                                <hr/>
+                                <h:selectOneRadio id="planoRadio"  layout="pageDirection" styleClass="form-check" value="#{planoMb.idPlano}">
+                                    <f:selectItems  class="form-check-input" value="#{planoMb.listPlano}" var="c"
+                                                    itemLabel="#{c.nome}" itemValue="#{c.idPlano}" >
+                                    </f:selectItems>
+                                    <p:ajax event="change"  listener="#{planoMb.doItemPlano}"  process="panelCompra formDialogLoja" update="panelCompra formDialogLoja"  >
+                                    </p:ajax>
+                                </h:selectOneRadio>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div jsfc="h:panelGroup" id="modulos"  class="col-sm" style="padding-right: 5px; padding-left: 5px;">
+                        <div class="card card-alt-300 shadow">
+                            <div class="card-body paineisCompra">
+                                <h4 class="card-title">Módulos</h4>
+                                <hr/>
+                                <ul>
+                                    <ui:repeat var="modulo" value="#{planoMb.plano.modulos}">
+                                        <li>
+                                            <h:outputText value="#{modulo.nome}" />
+                                        </li>
+                                    </ui:repeat>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div jsfc="h:panelGroup" id="resumoPlano"  class="col-sm " style="padding-right: 5px; padding-left: 5px;">
+                        <div class="card card-alt-300 shadow">
+                            <div class="card-body paineisCompra">
+                                <h4 class="card-title">Resumo</h4>
+                                <hr/>
+                                <span > #{planoMb.produtoSelecionado.nome}</span>
+                                <hr/>
+                                <h6>Plano</h6>
+                                <span > #{planoMb.plano.nome}</span>
+                                <hr/>
+                                <p class="card-text">
+                                    <h6>Valor</h6>
+                                    <h5>#{utilMb.formatMoney(planoMb.plano.valorPlano, true)}</h5>
+                                </p>
+                                <button jsfc="h:commandButton" rendered="#{not (planoMb.plano.idPlano eq null)}" type="button" class="btn bt-comprar botao-100pc" value="CONTRATAR">
+                                    <p:ajax event="click" listener="#{planoMb.abrirModalFinalizarPagamento}" process="@form" update="formDialogLoja" ></p:ajax>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destaque 3 - Texto à esquerda -->
+
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <div class="col-md-12 text-white bgImg2">
+            <div class="pricing-header1 px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+                <h2 class="titDest1">Conheça todos os planos de venda</h2>
+                <h3>Diversas opções em pacotes e categorias disponíveis.</h3>
+                <p class="lead">Pré-pago ou Pós-Pago? Em pacotes de 10, 20, 30 ou mais Notas Fiscais eletrônicas, nossos planos foram criados para dar a você o máximo de opções possíveis para a aquisição do produto de acordo com a sua necessidade individual.</p>
+                <br/>
+                <a href="planos.xhtml" target="_self"><button type="button" class="btn btn-primary mb-4">Sim, quero conhecer os planos agora mesmo!</button></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destaque 4 - Linha 2 colunas produtos -->
+
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6 padding-col">
+                <img jsfc="h:graphicImage" value="resources/loja/img/logo_acnf.png"/><br/><br/>
+                <p class="paragrafo-prod-azul">Uma plataforma integrada para notas ﬁscais eletrônicas e personalizada para você empreendedor. <b>Buscamos atender os desaﬁos gerados pela mudança da legislação, adaptando nosso sistema para o seu dia-a-dia</b>. Oferecemos tecnologia de ponta e diferenciais exclusivos para exceder expectativas!</p>
+                <table class="table table-borderless tabela-prod-azul">
+                    <tr>
+                        <td>
+                            <img jsfc="h:graphicImage" value="resources/loja/img/ico_offline.png" /></td>
+                        <td>
+                            <p><b>MODO OFFLINE</b><br/>
+                                Emissão de notas onde você estiver, sem conexão com a internet.</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img jsfc="h:graphicImage" value="resources/loja/img/ico_mobile.png" /></td>
+                        <td>
+                            <p><b>INTEGRAÇÃO MOBILE</b><br/>
+                                Praticidade garantida com as funcionalidades do sistema na palma da sua mão.</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img jsfc="h:graphicImage" value="resources/loja/img/ico_agilidade.png"/></td>
+                        <td>
+                            <p><b>AGILIDADE</b><br/>
+                                Em todo o processo de documentos ﬁscais e atualizações em tempo real.</p></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="text-right">
+                            <a href="acnf.xhtml" target="_self"><button type="button" class="btn bt-SaibaMais-ACNF">Veja Mais</button></a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 padding-col">
+                <a href="acnf_agro.xhtml" target="_self"><img jsfc="h:graphicImage" value="resources/loja/img/logo_acnf_agro.png" /></a><br/><br/>
+                <p class="paragrafo-prod-verde">Uma plataforma integrada para notas fiscais eletrônicas e personalizada para produtores rurais. <b>Buscamos atender os desafios gerados pela mudança da legislação, adaptando nosso sistema para o dia-a-dia do produtor</b>. Em parceria com instituições que são referência no setor, oferecemos tecnologia de ponta e diferenciais exclusivos para exceder expectativas!</p>
+                <table class="table table-borderless tabela-prod-verde">
+                    <tr>
+                        <td>
+                            <img jsfc="h:graphicImage" value="resources/loja/img/ico_agro_offline.png"/></td>
+                        <td>
+                            <p><b>MODO OFFLINE</b><br/>
+                                Emissão de notas onde você estiver, sem conexão com a internet.</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img jsfc="h:graphicImage" value="resources/loja/img/ico_agro_mobile.png"/></td>
+                        <td>
+                            <p><b>INTEGRAÇÃO MOBILE</b><br/>
+                                Praticidade garantida com as funções do sistema na palma da sua mão.</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img jsfc="h:graphicImage" value="resources/loja/img/ico_agro_agilidade.png"/></td>
+                        <td>
+                            <p><b>AGILIDADE</b><br/>
+                                Em todo o processo de documentos fiscais e atualizações em tempo real.</p></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="text-right">
+                            <a href="acnf_agro.xhtml" target="_self"><button type="button" class="btn bt-SaibaMais-ACNF-Agro">Veja Mais</button></a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destaque 5 - Texto centralizado -->
+
+    <div class="row" style="margin-left: 0px; margin-right: 0px">
+        <div class="col-md-12 text-white bgImg3">
+            <div class="pricing-header1 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4">Parceiros Acertsis</h1>
+                <p class="lead">Conheça os planos de parceria e representação comercial da Acertsis, você pode revender os produtos para seus clientes e receber vantagens exclusivas. Cadastre-se hoje mesmo.</p><br/>
+                <a href="cadastro.xhtml" target="_self"><button type="button" class="btn btn-primary botao-60pc">Clique aqui para preencher o seu cadastro</button></a>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form - Fale Conosco -->
+    <f:subview id="faleConosco">
+        <div class="contato-form1 px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+            <h2>Fale conosco</h2>
+            <p class="lead">Utilize o formulário abaixo para entrar em contato, sua solicitação será respondida pela nossa equipe o mais breve possível.</p>
+            <div class="form-group">
+                <label for="usr">Nome*:</label>
+                <input jsfc="p:inputText" value="#{contatoMb.contatoLojaDto.nome}" type="text" class="form-control" id="nome"
+                       required="#{param['javax.faces.source'] eq 'formIndex:faleConosco:salvarContato'}"/>
+            </div>
+            <div class="form-group">
+                <label for="pwd">E-mail*:</label>
+                <input jsfc="p:inputText" value="#{contatoMb.contatoLojaDto.email}" type="text" class="form-control" id="email"
+                       required="#{param['javax.faces.source'] eq 'formIndex:faleConosco:salvarContato'}"/>
+            </div>
+            <h:selectOneRadio id="tipoContatos" value="#{contatoMb.contatoLojaDto.tipoMensagem}" layout="lineDirection" styleClass="radioButtons"
+                              required="#{param['javax.faces.source'] eq 'formIndex:faleConosco:salvarContato'}">
+                <f:selectItems value="#{contatoMb.tipoContatos}" var="item" itemValue="#{item}" itemLabel="#{item.label}" ></f:selectItems>
+            </h:selectOneRadio>
+            <br/>
+            <br/>
+            <div class="form-group">
+                <label for="comment">Mensagem:</label>
+                <textarea jsfc="p:inputTextarea" value="#{contatoMb.contatoLojaDto.mensagem}" class="form-control" rows="5" id="comment"
+                          required="#{param['javax.faces.source'] eq 'formIndex:faleConosco:salvarContato'}"></textarea>
+            </div>
+            <br/>
+            <button id="salvarContato" jsfc="h:commandButton"  type="button" class="btn btn-primary btn-block" value="ENVIAR">
+                <p:ajax process="@form" update="@form" listener="#{contatoMb.enviarEmailContrato}" event="click"
+                        onstart="startStatus()" oncomplete="stopStatus()" ></p:ajax>
+            </button>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+    </f:subview>
+
+
+</ui:component>

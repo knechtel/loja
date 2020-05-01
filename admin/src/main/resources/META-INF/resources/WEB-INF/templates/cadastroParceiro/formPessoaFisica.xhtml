@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    <!-- Conteúdo da Aba Pessoa Física -->
+
+
+    <br/>
+    <h5 class="pb-3"><i class="fas fa-user"></i> Pessoa Física</h5>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input jsfc="p:inputText"  value="#{solicitarParceriaMb.pessoaFisica.nome}" type="text" class="form-control" id="nome"  />
+            </div></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input jsfc="p:inputMask" mask="999.999.999-99" value="#{solicitarParceriaMb.pessoaFisica.cpf}" type="text" class="form-control" id="cpf"/>
+            </div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="datanasc">Data de nascimento:</label>
+                <input jsfc="p:inputMask" mask="99/99/9999" value="#{solicitarParceriaMb.pessoaFisica.dtNascimento}" converter="#{jsfLocalDateConverter}" type="text" class="form-control" id="datanasc">
+                    <f:attribute name="pattern" value="dd/MM/yyyy" />
+                </input>
+            </div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="comment">Observações:</label>
+                <textarea class="form-control" rows="5" id="observacoes" jsfc="h:inputTextarea" value="#{solicitarParceriaMb.parceiro.obsevacaoSolicitacaoParceria}" ></textarea>
+            </div>
+        </div>
+    </div>
+    <ui:param name="modelRefBanc" value="#{solicitarParceriaMb.referenciaBancaria}"></ui:param>
+
+    <ui:decorate template="formReferenciasBancarias.xhtml">
+    </ui:decorate>
+
+    <div class="row">
+        <div class="col-md-12 pb-4">
+            <h6>Dados Gerais</h6>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>1) A conta corrente deverá ser do próprio escritório ou do contador proprietário.<br/>
+                2) Atenção: A transferência dos valores referentes às gratificações são gratuitas para os bancos BANRISUL, BANCO DO BRASIL, CAIXA e ITAÚ. Caso não possua conta bancária nestes bancos, a taxa de TED custará R$ 10,00, podendo ser descontada do valor mensal a receber.<br/>
+                3) Após a confirmação do cadastro, será enviado um e-mail com o seu Código de Consultor no sistema da <b>ACNF</b> para a inclusão dos clientes e o acompanhamento das indicações.<br/>
+                4) As gratificações serão pagas na conta cadastrada após o acúmulo de R$ XXXX,00.</p>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="bot-Cadastro">	
+        <button jsfc="h:commandButton" id="idEnviarFisica" value="Enviar Cadastro"  action="#{solicitarParceriaMb.savePessoaFisica}"  class="btn btn-primary"></button>
+    </div>
+
+
+
+
+</ui:component>

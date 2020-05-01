@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <p:panelGrid id="panelRefBanco" columns="1"  layout="grid">
+
+        <p:outputLabel value="Banco *" for="banco" />
+        <p:autoComplete id="banco" widgetVar="banco" queryDelay="500"  cache="true" cacheTimeout="5000" forceSelection="true"  placeholder="Pesquisar Banco" dynamic="true" autoHighlight="true" selectLimit="5"
+                        value="#{referenciaBancariaModel.referenciaBancaria.banco}"  completeMethod="#{dataProviderMb.autoCompleteBanco}"
+                        var="banco" itemLabel="#{banco.codigoAndNome}"  itemValue="#{banco}" converter="#{bancoConverter}" 
+                        required="#{referenciaBancariaModelRequired}">
+            <p:column>
+                <h:outputText value="#{banco.codigo}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{banco.nome}" />
+            </p:column>
+        </p:autoComplete>   
+
+        <p:outputLabel value="Conta *" for="conta" />
+        <p:inputText id="conta" value="#{referenciaBancariaModel.referenciaBancaria.conta}" title="Conta" required="#{referenciaBancariaModelRequired}" size="20" />
+
+        <p:outputLabel value="Agência *" for="agencia" />
+        <p:inputText id="agencia" value="#{referenciaBancariaModel.referenciaBancaria.agencia}" title="Agência" required="#{referenciaBancariaModelRequired}" size="20" />
+
+
+        <p:outputLabel value="Operação *" for="operacao" />
+        <p:inputText id="operacao" value="#{referenciaBancariaModel.referenciaBancaria.operacao}" title="Operação" size="10" />
+
+
+        <p:outputLabel value="Títular *" for="titular" />
+        <p:inputText id="titular" value="#{referenciaBancariaModel.referenciaBancaria.titular}" title="Títular da Conta" required="#{referenciaBancariaModelRequired}" />
+
+        <p:outputLabel value="Tipo de Conta Bancária *" for="tipoContaBancariaEnum" />
+
+        <p:selectOneRadio id="tipoContaBancariaEnum" value="#{referenciaBancariaModel.referenciaBancaria.tipoContaBancariaEnum}"  >
+            <f:selectItems value="#{dataProviderMb.tipoContaBancariaEnum}" var="item" itemLabel="#{item.label}" itemValue="#{item}" />
+            <f:ajax event="change" render="panelRefBanco" execute="panelRefBanco" />
+        </p:selectOneRadio>
+
+
+        <p:outputLabel value="Cpf *" for="cpf" rendered="#{'FISICA' eq referenciaBancariaModel.referenciaBancaria.tipoContaBancariaEnum}"  />
+        <p:inputMask mask="999.999.999-99" size="14" id="cpf" value="#{referenciaBancariaModel.referenciaBancaria.cpfCnpj}" title="Cpf" 
+                     rendered="#{'FISICA' eq referenciaBancariaModel.referenciaBancaria.tipoContaBancariaEnum}" required="#{referenciaBancariaModelRequired}" />
+
+        <p:outputLabel value="Cnpj *" for="cnpj"  rendered="#{'JURIDICA' eq referenciaBancariaModel.referenciaBancaria.tipoContaBancariaEnum}"  />
+        <p:inputMask mask="99.999.999.9999/99" size="18" id="cnpj" value="#{referenciaBancariaModel.referenciaBancaria.cpfCnpj}" title="Cnpj" 
+                     rendered="#{'JURIDICA' eq referenciaBancariaModel.referenciaBancaria.tipoContaBancariaEnum}" required="#{referenciaBancariaModelRequired}" />
+    </p:panelGrid>
+
+
+</ui:component>

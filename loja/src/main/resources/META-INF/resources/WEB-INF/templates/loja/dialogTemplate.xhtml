@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalFinalizarCompra" aria-labelledby="myExtraLargeModalLabel" data-backdrop="static" aria-hidden="true" style="margin-right: 100px;">
+        <div class="modal-dialog" style="width:150%" >
+            <div class="modal-content" style="width:150%">
+                <form id="formDialogLoja" jsfc="h:form" >
+                    <ui:decorate template="formPagamento.xhtml"></ui:decorate>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fecharComprar()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalImprimirBoleto"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" >
+            <div class="modal-content">
+                <form id="formImprimirBoleto" jsfc="h:form" >
+                    <div class="alert alert-success" style="margin-bottom: 0px;" role="alert">
+                        <h4 class="alert-heading">Pagamento Realizado com sucesso!</h4>
+                        <p>Você receberá um email de confirmação.</p>
+                        <hr/>
+                        <p:commandButton rendered="#{not (planoMb.downloadBoleto eq null)}" onclick="fecharImprimirBoleto();" value="Imprimir Boleto" ajax="false" class="btn bt-comprar botao-100pc" >
+                            <p:fileDownload value="#{planoMb.downloadBoleto}"  />
+                        </p:commandButton>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalCartaoCreditoSucesso"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" >
+            <div class="modal-content">
+                <form id="cartaoSucesso" jsfc="h:form" >
+                    <div class="alert alert-success" style="margin-bottom: 0px;" role="alert">
+                        <h4 class="alert-heading">Pagamento Realizado com sucesso!</h4>
+                        <p>Você receberá um email de confirmação.</p>
+                        <hr/>
+                        <p:commandButton value="Fechar" ajax="true" oncomplete="fecharSucessoCartao();" class="btn bt-comprar botao-100pc" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalErroPagamento"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <form id="formErroPagamento" jsfc="h:form" >
+                    <div class="alert alert-danger" style="margin-bottom: 0px;" role="alert">
+                        <p:messages id="messages" showDetail="true" closable="true">
+                            <p:autoUpdate />
+                        </p:messages>
+
+                        <p:commandButton value="Fechar" ajax="true" oncomplete="fechaErroPagamento();" class="btn bt-comprar botao-100pc" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalStatus" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="d-flex justify-content-center text-primary">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalContatoEnviadoComSucesso"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" >
+            <div class="modal-content">
+                <div class="alert alert-success" style="margin-bottom: 0px;" role="alert">
+                    <h4 class="alert-heading">Email enviado com sucesso!</h4>
+                    <p>Você receberá um email de confirmação.</p>
+                    <hr/>
+                    <p:commandButton onclick="fecharModalContatoEnviadoComSucesso();" value="Fechar" ajax="true" class="btn bt-comprar botao-100pc" >
+                    </p:commandButton>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalErro"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <form id="modalErro" jsfc="h:form" >
+                    <div class="alert alert-danger" style="margin-bottom: 0px;" role="alert">
+                        <p:messages id="messages" showDetail="true" closable="true">
+                            <p:autoUpdate />
+                        </p:messages>
+
+                        <p:commandButton value="Fechar" ajax="true" oncomplete="fechaErro();" class="btn bt-comprar botao-100pc" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function imprimirBoleto() {
+          fecharComprar();
+          fechaErroPagamento();
+          $('#modalImprimirBoleto').modal('show');
+        }
+        function fecharImprimirBoleto() {
+          $('#modalImprimirBoleto').modal('hide');
+        }
+        function erroPagamento() {
+          fecharComprar();
+          fecharImprimirBoleto();
+          $('#modalErroPagamento').modal('show');
+        }
+        function fechaErroPagamento() {
+          $('#modalErroPagamento').modal('hide');
+        }
+        function comprar() {
+          fecharImprimirBoleto();
+          fechaErroPagamento();
+          $('#modalFinalizarCompra').modal('show');
+        }
+        function fecharComprar() {
+          $('#modalFinalizarCompra').modal('hide');
+        }
+        function startStatus() {
+          $('#modalStatus').modal('show');
+        }
+        function stopStatus() {
+          $('#modalStatus').modal('hide');
+        }
+        function abrirModalContatoEnviadoComSucesso() {
+          $('#modalContatoEnviadoComSucesso').modal('show');
+        }
+        function fecharModalContatoEnviadoComSucesso() {
+          $('#modalContatoEnviadoComSucesso').modal('hide');
+        }
+        function abrirErro() {
+          $('#modalErro').modal('show');
+        }
+        function fechaErro() {
+          $('#modalErro').modal('hide');
+        }
+
+        function startSucessoCartao() {
+          $('#modalCartaoCreditoSucesso').modal('show');
+        }
+        function fecharSucessoCartao() {
+          $('#modalCartaoCreditoSucesso').modal('hide');
+        }
+    </script>
+</ui:component>

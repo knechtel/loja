@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    <ui:define name="model">
+        <ui:param name="modelTelefone" value="#{solicitarParceriaMb}"></ui:param>
+        <ui:param name="email" value="#{solicitarParceriaMb}"></ui:param>
+    </ui:define>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="datanasc">Telefone:</label>
+                <input jsfc="p:inputText" value="#{modelTelefone.numero}" type="text" class="form-control" id="telefone"/>
+            </div></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="cpf">Celular:</label>
+                <input jsfc="p:inputText" value="#{modelTelefoneCelular.numero}" type="text" class="form-control" id="celular"/>
+            </div></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="telefone">E-mail:</label>
+                <input jsfc="p:inputText" value="#{email}" type="text" class="form-control" id="email"/>
+            </div></div>
+    </div>
+
+    <hr/>
+
+
+
+</ui:component>

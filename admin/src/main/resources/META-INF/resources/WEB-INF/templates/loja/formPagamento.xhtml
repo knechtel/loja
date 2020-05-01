@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <div class="content" jsfc="h:panelGroup">
+        <div class="row">
+            <div class="col-md-12 padding-col">
+                <h4>Detalhes do pedido</h4>
+                <p class="paragrafo-checkout">
+                    <br/>
+                    <b>Nome do plano:</b> #{planoMb.finalizarCompraDTO.planoSelecionado.nome}<br/>
+                    <p>
+                        #{planoMb.finalizarCompraDTO.planoSelecionado.descricao}
+                    </p>
+                    <b>Valor:</b>  #{utilMb.formatMoney(planoMb.finalizarCompraDTO.planoSelecionado.valorPlano, true)}<br/>
+                    <b>Data:</b>  #{utilMb.formatLocalDate(planoMb.finalizarCompraDTO.dataCompra, "dd/MM/yyyy")}<br/>
+                    <br/>
+                </p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Forma de pagamento</h4>
+                        <br/>
+                        <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a jsfc="h:commandLink" class="nav-link #{planoMb.finalizarCompraDTO.meioPagamento eq 'BOLETO'?'active':''}" id="boleto-tab"
+                                   data-toggle="tab" href="#boleto" role="tab" aria-controls="boleto" aria-selected="#{planoMb.finalizarCompraDTO.meioPagamento eq 'BOLETO'}"><i class="fas fa-money-check-alt"></i> Boleto bancário
+                                    <f:passThroughAttribute name="role" value="tab" />
+                                    <f:passThroughAttribute name="data-toggle" value="tab" />
+                                    <f:passThroughAttribute name="aria-selected" value="#{planoMb.finalizarCompraDTO.meioPagamento eq 'BOLETO'}" />
+                                    <f:passThroughAttribute name="aria-controls" value="boleto" />
+                                    <f:passThroughAttribute name="href" value="#boleto" />
+                                    <f:ajax event="action" immediate="true" execute="@form" render="@form" listener="#{planoMb.addTipoPagamento('BOLETO')}"></f:ajax>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a jsfc="h:commandLink"  class="nav-link #{planoMb.finalizarCompraDTO.meioPagamento eq 'CARTAO_CREDITO'?'active':''}" id="cartao-tab" data-toggle="tab" href="#cartao" role="tab" aria-controls="cartao"  aria-selected="#{planoMb.finalizarCompraDTO.meioPagamento eq 'CARTAO_CREDITO'}"> <i class="far fa-credit-card"></i> Cartão de crédito
+                                    <f:passThroughAttribute name="role" value="tab" />
+                                    <f:passThroughAttribute name="data-toggle" value="tab" />
+                                    <f:passThroughAttribute name="aria-selected" value="#{planoMb.finalizarCompraDTO.meioPagamento eq 'CARTAO_CREDITO'}" />
+                                    <f:passThroughAttribute name="aria-controls" value="cartao" />
+                                    <f:passThroughAttribute name="href" value="#cartao" />
+                                    <p:ajax event="action"  immediate="true" process="@form"  update="@form" listener="#{planoMb.addTipoPagamento('CARTAO_CREDITO')}">
+                                    </p:ajax>
+                                    <p:ajax event="action" process="@form"  update="@form" ></p:ajax>
+
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent3">
+                            <div class="tab-pane fade #{planoMb.finalizarCompraDTO.meioPagamento eq 'BOLETO'?'show active':''}" id="boleto" role="tabpanel" aria-labelledby="boleto-tab">
+                                <br/>
+                                <h5 class="pb-3"><i class="fas fa-money-check-alt"></i> Boleto bancário</h5>
+                                <p>Preencha os dados abaixo e clique em finalizar.</p><br/>
+
+                                <hr/>
+
+                            </div>
+
+
+                            <div class="tab-pane fade #{planoMb.finalizarCompraDTO.meioPagamento eq 'CARTAO_CREDITO'?'show active':''} " id="cartao" role="tabpanel" aria-labelledby="cartao-tab">
+                                <br/>
+                                <h5 class="pb-3"><i class="far fa-credit-card"></i> Cartão de crédito</h5>
+
+
+                                <div jsfc="h:panelGroup" rendered="#{planoMb.finalizarCompraDTO.meioPagamento eq 'CARTAO_CREDITO'}">   
+                                    <div class="row paragrafo-tabs-cinza">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="bandeira">*Bandeira:</label>
+                                                <select class="form-control" id="bandeira" required="#{true}"
+                                                        jsfc="h:selectOneMenu" value="#{planoMb.finalizarCompraDTO.bandeira}" >
+                                                    <f:selectItems value="#{dataProviderMb.banderiasCartao}" />
+                                                </select>
+                                            </div></div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="numcart">*Número  do cartão:</label>
+                                                <input type="text" class="form-control" id="numcart" required="#{true}"
+                                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.numeroCartao}" />
+                                            </div></div>
+                                    </div>
+
+                                    <div class="row paragrafo-tabs-cinza">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="titcart">*Titular do Cartão:</label>
+                                                <input type="text" class="form-control" id="titcart" required="#{true}"
+                                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.titularCartao}" />
+                                            </div></div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="validmes">*Data de validade (mês):</label>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="validmes" required="#{true}"
+                                                            jsfc="h:selectOneMenu" value="#{planoMb.finalizarCompraDTO.mesVencimentoCartao}" >
+                                                        <f:selectItems value="#{dataProviderMb.mesesVencimentoCartao}" />
+                                                    </select>
+                                                </div>
+
+                                            </div></div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="validano">*Data de validade (ano):</label>
+                                                <select class="form-control" id="validano" jsfc="h:selectOneMenu"
+                                                        value="#{planoMb.finalizarCompraDTO.anoVencimentoCartao}" required="#{true}" >
+                                                    <f:selectItems value="#{dataProviderMb.anosVencimentoCartao}" />
+                                                </select>
+                                            </div></div>
+                                    </div>
+
+                                    <div class="row paragrafo-tabs-cinza">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="codsegur">*Código de segurança:</label>
+                                                <input type="text" class="form-control" id="codsegur" jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.codigoSegCartao}"
+                                                       required="#{true}"/>
+                                            </div></div>
+
+                                        <div class="col-md-3">
+                                            <p class="pt-5"><i class="fas fa-question-circle text-primary"></i> <a href="#"><u>O que é isso?</u></a></p></div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="parcelas">*Parcelas:</label>
+                                                <select class="form-control" id="parcelas" jsfc="h:selectOneMenu" value="#{planoMb.finalizarCompraDTO.parcelas}" required="#{true}" >
+                                                    <f:selectItems value="#{dataProviderMb.parcelasCartao}" />
+                                                </select>
+                                            </div></div>
+                                    </div>
+
+                                    <hr/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Informações de cadastro</h4>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nome">*Nome:</label>
+                            <input type="text" class="form-control" id="nome" required="true"
+                                   jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.nome}">
+                                <f:ajax event="blur" render="@this panelFinalizar"  execute="@this"  />
+                            </input>
+                        </div></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email">*E-mail:</label>
+                            <input type="text" class="form-control" id="email" required="true"
+                                   jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.email}"/>
+                        </div></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="datanasc">*Data de nascimento:</label>
+                            <input type="text" class="form-control" id="datanasc" 
+                                   jsfc="p:inputMask" mask="99/99/9999" value="#{planoMb.finalizarCompraDTO.datanasc}"
+                                   required="true" converter="#{jsfLocalDateConverter}" >
+                                <f:attribute name="pattern" value="dd/MM/yyyy"></f:attribute>
+                            </input>
+                        </div></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="cpf">*CPF:</label>
+                            <input type="text" class="form-control" id="cpf"
+                                   jsfc="p:inputMask" mask="999.999.999-99" value="#{planoMb.finalizarCompraDTO.cpf}" required="true" />
+                        </div></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="telefone">*Telefone:</label>
+                            <input type="text" class="form-control" id="telefone"
+                                   jsfc="p:inputMask" mask="(99)99999-9999"  value="#{planoMb.finalizarCompraDTO.telefone}" required="true" />
+                        </div></div>
+                </div>
+
+                <hr/>
+
+                <div class="row" jsfc="h:panelGroup" rendered="#{planoMb.tipoPessoa eq 'JURIDICA'}" >
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cnpj">*CNPJ:</label>
+                            <input type="text" class="form-control" id="cnpj"
+                                   jsfc="p:inputMask" mask="99.999.999.9999/99" value="#{planoMb.finalizarCompraDTO.cnpj}" required="true" />
+                        </div></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="razao">*Razão Social:</label>
+                            <input type="text" class="form-control" id="razao" jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.razaoSocial}" required="true" />
+                        </div></div>
+                </div>
+
+
+                <div jsfc="h:panelGroup" rendered="#{planoMb.finalizarCompraDTO.meioPagamento eq 'BOLETO'}">
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cep">*CEP:</label>
+                                <input type="text" class="form-control" id="cep" jsfc="p:inputMask"  mask="99999-999" value="#{planoMb.finalizarCompraDTO.cep}" required="true" />
+                            </div></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="endereco">*Endereço:</label>
+                                <input type="text" class="form-control" id="endereco" jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.endereco}" required="true" />
+                            </div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="numero">*Número:</label>
+                                <input type="text" class="form-control" id="numero"
+                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.numero}" required="true" />
+                            </div></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="complemento">*Complemento:</label>
+                                <input type="text" class="form-control" id="complemento"
+                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.complemento}"/>
+                            </div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="bairro">*Bairro:</label>
+                                <input type="text" class="form-control" id="bairro" 
+                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.bairro}" required="true" />
+                            </div></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="estado">*Estado:</label>
+                                <input type="text" class="form-control" id="estado" 
+                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.estado}" required="true" />
+                            </div></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="cidade">*Cidade:</label>
+                                <input type="text" class="form-control" id="cidade"
+                                       jsfc="p:inputText" value="#{planoMb.finalizarCompraDTO.cidade}" required="true" />
+                            </div></div>
+                    </div>
+                </div>    
+                <hr/>
+
+                <div class="form-group">
+                    <label for="termos">Termos de uso:</label>
+                    <textarea class="form-control" cols="30" rows="5" id="termos" >TERMO de CESSÃO de DIREITO de USO de SOFTWARE
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.
+                    </textarea>
+
+                </div>
+
+                <hr/>
+                <div jsfc="h:panelGroup" id="panelFinalizar">
+                    <div class="row pb-5">
+                        <div class="col-md-6 text-left">
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="disclaimerAceito" type="checkbox" jsfc="h:selectBooleanCheckbox" value="#{planoMb.finalizarCompraDTO.disclaimerAceito}" required="true">
+                                        <f:ajax event="change" execute="@form"  render="@form" ></f:ajax>
+                                    </input> Li e aceito os termos de uso.
+                                </label>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p:commandButton value="FINALIZAR COMPRA" rendered="#{((not facesContext.validationFailed) and planoMb.finalizarCompraDTO.disclaimerAceito)}" ajax="true" actionListener="#{planoMb.finalizarPagamento}" 
+                                             process="@form" update="@form formImprimirBoleto" onstart="startStatus();fecharComprar();" oncomplete="stopStatus()" class="btn bt-comprar botao-100pc">
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </div>     
+            </div> 
+        </div>
+    </div>
+</ui:component>

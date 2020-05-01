@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
+    <head id="head" jsfc="h:head">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" ></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1" ></meta>
+        <title>Acertsis</title>
+        <!-- Bootstrap -->
+        <link href="#{request.contextPath}/resources/admin/css/bootstrap-4.3.1.css" rel="stylesheet"/>
+        <!-- Custom CSS -->
+        <link href="#{request.contextPath}/resources/admin/css/estilos.css" rel="stylesheet"/>
+        <!-- Font Awesome - Load all styles -->
+        <link href="#{request.contextPath}/resources/admin/css/all.css" rel="stylesheet"/>
+    </head>
+
+    <body class="bg-azul-esc">
+
+        <!-- Logo e Versão -->	
+
+        <div class="linha100pc1">
+            <div class="content bg-top1">
+                <div class="row" style="margin-left: 0px; margin-right: 0px">
+                    <div class="col-md-6 text-left">
+                        <table style="height: 50px;">
+                            <tbody>
+                                <tr>
+                                    <td class="align-middle">
+                                        <img jsfc="h:graphicImage"  value="resources/loja/img/logo_acertsis_branco.png"/></td>
+                                </tr>
+                            </tbody>
+                        </table></div>
+                    <div class="col-md-6 text-right">
+                        <div class="txt-branco-12 pad-13">
+                            Admin v.1 | 2019</div>
+                    </div>
+                </div>
+            </div>	  
+        </div>
+
+        <!-- 1 Col -->
+
+        <div class="linha100pc2">
+            <div class="content">
+                <div class="row" style="margin-left: 0px; margin-right: 0px; padding-top: 150px; padding-bottom: 150px">	
+                    <div class="col-md-12 text-left">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title titDest-1">Seja bem vindo ao sistema restrito.</h5>
+                                <p class="card-text">Entre com seu nome de usuário e senha abaixo para acessar.</p>
+                                <p><small><i>* Ambiente restrito a parceiros e funcionários da Acertsis.</i></small></p>
+                                <br/>
+                                <br/>
+                                <div class="form-Login">
+                                    <!-- Form Login-->
+                                    <form method="POST" action="/admin/login.xhtml">
+                                        <div class="form-group">
+                                            <label for="usr"><b>Nome do usuário:</b></label>
+                                            <input name="username" type="text" class="form-control" id="usr" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pwd"><b>Senha:</b></label>
+                                            <input name="password"  type="password" class="form-control" id="pwd"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" value="Entrar">Entrar</button>
+                                        </div>
+                                        <div jsfc="h:panelGroup" role="alert"  class="alert alert-danger" rendered="#{request.parameterMap.containsKey('error')}">
+                                            Usuário ou Senha incorretos.
+                                        </div>
+                                    </form>
+                                    <br/>
+                                    <!--
+                                                                     <p class="card-text"><small>• Esqueceu a sua senha? <a href="recupera_senha.xhtml" target="_self">Clique aqui</a> para recuperar.</small></p>
+                                                                  
+                                                                     <p class="card-text"><small>• Ainda não é um usuário cadastrado? <a href="cadastro.xhtml">Clique aqui</a> para criar o seu cadastro.</small></p>
+                                    -->
+                                </div>								
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+
+        <div class="row bg-azul-esc" style="margin-left: 0px; margin-right: 0px">
+            <div class="col-md-12 text-white text-center">
+                <br/><small>Desenvolvido por:</small><br/>
+                Acertsis Fábrica de Software &copy; 2019<br/>
+                <a href="http://www.acertsis.com.br" class="link-branco-12" target="_blank">www.acertsis.com.br</a><br/>
+                <br/>
+            </div>
+        </div>
+
+        <script  type="text/javascript" src="#{request.contextPath}/resources/admin/js/jquery-3.3.1.min.js"></script>
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/admin/js/popper.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/admin/js/bootstrap-4.3.1.js"></script>
+        <script>
+            $(document).ready(function () {
+              $("#head").find("link").each(function (i, e) {
+                if (e.href.search("theme.css.xhtml") > -1) {
+                  e.remove();
+                }
+              })
+            });
+        </script>
+    </body>
+
+</html>
+

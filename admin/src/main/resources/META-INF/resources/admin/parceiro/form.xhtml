@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <div class="ui-fluid">
+
+        <ui:param name="formPessoaFisicaModel" value="#{managedBean.pessoaFisica}" ></ui:param>
+        <ui:param name="formPessoaFisicaModelRequired" value="#{param['javax.faces.source'] != 'crudForm:tabView1:tipoPessoa'}" ></ui:param>
+        <ui:param name="formPessoaJuridicaModel" value="#{managedBean.pessoaJuridica}" ></ui:param>
+        <ui:param name="formPessoaJuridicaModelRequired" value="#{param['javax.faces.source'] != 'crudForm:tabView1:tipoPessoa'}"></ui:param>
+        <p:panel header="Dados Gerais">
+            <p:tabView id="tabView1" binding="#{managedBean.bindTabView1}">
+                <p:tab title="Informações">
+                    <input jsfc="h:inputHidden" value="#{managedBean.model.idParceiro}" />
+                    <div jsfc="p:panelGrid" columns="1"  layout="grid">
+
+                        <label jsfc="p:outputLabel" for="raiz" value="Parceiro Padrão*" 
+                               rendered="#{managedBean.parceiroPodeSerRaiz}" title="Quando um cliente não estiver associado a nenhum parceiro, ele ficará associado a um parceiro padrão." />
+                        <select jsfc="p:selectOneMenu" id="raiz" value="#{managedBean.model.raiz}" required="true" rendered="#{managedBean.parceiroPodeSerRaiz}" >
+                            <option jsfc="f:selectItem" itemValue="true" itemLabel="Sim" >Sim</option>
+                            <option jsfc="f:selectItem" itemValue="false" itemLabel="Não" >Não</option>
+                        </select>
+
+                        <label jsfc="p:outputLabel" for="habilitado" value="Habilitado*" />
+                        <select jsfc="p:selectOneMenu" id="habilitado" value="#{managedBean.model.habilitado}" required="true" >
+                            <option jsfc="f:selectItem" itemValue="true" itemLabel="Sim" >Sim</option>
+                            <option jsfc="f:selectItem" itemValue="false" itemLabel="Não" >Não</option>
+                        </select>
+
+                        <label jsfc="p:outputLabel" for="situacao" value="Situação do Parceiro*" />
+                        <select jsfc="p:selectOneMenu" id="situacao" value="#{managedBean.model.status}" required="true" >
+                            <option jsfc="f:selectItems" value="#{dataProviderMb.statusParceiroEnums}" var="item" itemValue="#{item}" itemLabel="#{item.label}" ></option>
+                        </select>
+
+                        <label jsfc="p:outputLabel" for="tipoPessoa" value="Tipo de Pessoa*" />
+                        <select jsfc="p:selectOneMenu" id="tipoPessoa" value="#{managedBean.model.tipoPessoa}" required="true" >
+                            <option jsfc="f:selectItems" value="#{dataProviderMb.tiposPessoa}" var="item" itemValue="#{item}" itemLabel="#{item.label}" ></option>
+                            <p:ajax event="change" update="@form" process="@form" listener="#{managedBean.onChangeTipoPessoa}" ></p:ajax>
+                        </select>
+
+                        <div jsfc="h:panelGroup" rendered="#{'FISICA' eq managedBean.model.tipoPessoa}">
+                            <ui:decorate template="/WEB-INF/templates/pessoa/formPessoaFisica.xhtml"  />
+                        </div>
+
+                        <div jsfc="h:panelGroup" rendered="#{'JURIDICA' eq managedBean.model.tipoPessoa}">    
+                            <ui:decorate template="/WEB-INF/templates/pessoa/formPessoaJuridica.xhtml" />
+                        </div>    
+                    </div>
+                </p:tab>
+
+                <p:tab title="Profissional de Contabilidade" titletip="Preencha estes campos se for Contador, Técnico em Contabilidade etc..">
+                    <div jsfc="p:panelGrid" columns="1"  layout="grid">
+                        <label jsfc="p:outputLabel" for="crc" value="CRC" />
+                        <h:panelGrid columns="3" id="crcGrid"  title="Ex: UF-005343" >
+                            <p:selectOneMenu widgetVar="ufEstado" value="#{managedBean.model.ufCrc}"  >
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecione" itemValue=""></f:selectItem>
+                                <f:selectItems value="#{dataProviderMb.estados}" var="item" itemLabel="#{item.sigla}" itemValue="#{item.sigla}" />
+                                <f:ajax event="change" execute="@this" render="crcGrid"></f:ajax>
+                            </p:selectOneMenu>
+                            -
+                            <p:inputMask mask="999999" disabled="#{managedBean.model.ufCrc eq null}" size="6" id="crc" value="#{managedBean.model.crc}"/>
+                        </h:panelGrid>
+                    </div>
+
+                    <h:outputLink rendered="#{sessionMB.userAdmin}"  target="_blank" style="color: #014B76;text-decoration:underline;"  value="http://www3.cfc.org.br/SPw/ConsultaNacional/ConsultaCadastralCFC.aspx" 
+                                  title="Clique para consultar o CRC no conselho federal.">Pesquisar CRC</h:outputLink>
+
+                </p:tab>
+
+
+                <p:tab title="Endereço*" id="tabEndereco" >
+                    <ui:param name="formEnderecoModel" value="#{managedBean.enderecoModel}"></ui:param>
+                    <ui:param name="formEnderecoModelRequired" value="#{param['javax.faces.source'] eq 'crudForm:btnSalvar'}"></ui:param>
+                    <div jsfc="f:subview" id="enderecoParceiro" >
+                        <div jsfc="h:panelGroup" id="containerEnderecoParceiro">
+                            <ui:decorate template="/WEB-INF/templates/endereco/formEndereco.xhtml"  >
+                                <ui:define  name="cep">
+                                    <h:panelGrid columns="2">
+                                        <p:inputMask mask="99999999" id="cep" value="#{formEnderecoModel.endereco.cep}" title="Cep" style="width:200px;"
+                                                     required="#{formEnderecoModelRequired}">
+
+                                        </p:inputMask>
+                                        <h:commandButton type="button" value="Buscar Endereço" class="btn btn-primary" >
+                                            <f:ajax event="click" listener="#{managedBean.preencherEnderecoParceiro}" execute="enderecoParceiro:containerEnderecoParceiro"  render="enderecoParceiro:containerEnderecoParceiro" ></f:ajax>
+                                        </h:commandButton>
+                                    </h:panelGrid>
+                                </ui:define>
+                            </ui:decorate>
+                        </div>
+                    </div>
+                </p:tab>
+
+                <p:tab title="Contatos">
+                    <ui:param name="formContatoModel" value="#{managedBean.formContatoModel}"></ui:param>
+                    <ui:param name="formContatoModelRequired" value="#{param['javax.faces.source'] eq 'crudForm:tabView1:contatoParceiro:btnAdicionar'}"></ui:param>
+                    <div jsfc="f:subview" id="contatoParceiro" >
+                        <div jsfc="h:panelGroup" id="containerContatosParceiro">
+                            <ui:decorate template="/WEB-INF/templates/telefone/formContatos.xhtml"  >
+
+                                <ui:define name="btnAdicionar">
+                                    <button jsfc="h:commandButton" id="btnAdicionar" value="Adicionar" class="btn btn-primary">
+                                        <f:ajax event="click" listener="#{formContatoModel.addContato}" execute="contatoParceiro:containerContatosParceiro"  render="contatoParceiro:containerContatosParceiro" ></f:ajax>
+                                    </button>
+                                </ui:define>
+
+                                <ui:define name="contatoAcoes">
+                                    <p:menuButton value="Ações" class="btn-primary">
+                                        <p:menuitem value="Editar"  update="crudForm:tabView1:contatoParceiro:containerContatosParceiro" icon="fa fa-edit" process="crudForm:tabView1:contatoParceiro:containerContatosParceiro" actionListener="#{formContatoModel.addEditar(item,index)}" />
+                                        <p:menuitem value="Remover"  update="crudForm:tabView1:contatoParceiro:containerContatosParceiro" icon="fa fa-remove" process="crudForm:tabView1:contatoParceiro:containerContatosParceiro" actionListener="#{formContatoModel.addRemover(item,index)}" >
+                                            <p:confirm header="Confirmação" message="Deseja continuar?" icon="pi pi-exclamation-triangle"/>
+
+                                        </p:menuitem>
+                                    </p:menuButton>
+                                </ui:define>
+                            </ui:decorate>
+                        </div>
+                    </div>
+                </p:tab>
+                <p:tab title="Referências Bancárias *">
+                    <ui:param value="#{param['javax.faces.source'] eq 'crudForm:btnSalvar'}" name="referenciaBancariaModelRequired"></ui:param>
+                    <ui:param value="#{managedBean.referenciaBancariaModel}" name="referenciaBancariaModel"></ui:param>
+                    <ui:include src="/WEB-INF/templates/referenciasBancarias/formReferenciasBancarias.xhtml" ></ui:include>
+                </p:tab>
+            </p:tabView>
+        </p:panel>
+
+        <p:spacer height="10"></p:spacer>
+        <ui:decorate template="formResponsavel.xhtml" />
+    </div>
+
+</ui:component>

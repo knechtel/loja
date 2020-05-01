@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <div class="ui-fluid">
+
+        <ui:param name="formPessoaFisicaModel" value="#{clienteMb.pessoaFisica}" ></ui:param>
+        <ui:param name="formPessoaFisicaModelRequired" value="#{param['javax.faces.source'] != 'crudForm:tabView1:tipoPessoa'}" ></ui:param>
+        <ui:param name="formPessoaJuridicaModel" value="#{clienteMb.pessoaJuridica}" ></ui:param>
+        <ui:param name="formPessoaJuridicaModelRequired" value="#{param['javax.faces.source'] != 'crudForm:tabView1:tipoPessoa'}"></ui:param>
+
+        <p:panel header="Dados Gerais" id="panelDadosGerais">
+            <p:tabView id="tabView1" binding="#{clienteMb.bindTabView1}">
+                <p:tab title="Informações">
+                    <input jsfc="h:inputHidden" value="#{clienteMb.model.idCliente}" />
+                    <div jsfc="p:panelGrid" columns="1"  layout="grid">
+
+
+                        <label jsfc="p:outputLabel" for="parceiro" value="Parceiro*" />
+                        <p:autoComplete id="parceiro" value="#{clienteMb.model.parceiro}" required="true" converter="#{parceiroConverter}"
+                                        forceSelection="true" placeholder="Pesquisar Parceiro" dropdown="true" 
+                                        completeMethod="#{clienteMb.autoCompleteParceiro}" var="parceiro" itemValue="#{parceiro}" itemLabel="#{parceiro.pessoa.nome}">
+                        </p:autoComplete>
+
+                        <label jsfc="p:outputLabel" for="sku" value="SKU*" />
+                        <input jsfc="p:inputText" id="sku" readonly="true"  value="#{clienteMb.model.sku}" label="SKU" required="true"
+                               title="Campo utilizado para indentificar este cliente no sistema emissor de nota fiscal.">
+                            <p:tooltip  ></p:tooltip>
+                        </input>
+
+                        <label jsfc="p:outputLabel" for="dominio" value="Dominio*" />
+                        <input jsfc="p:inputText" id="dominio" readonly="true" value="#{clienteMb.model.dominio}" label="Dominio" required="true"
+                               title="Campo utilizado para indentificar este cliente no sistema emissor de nota fiscal."/>
+
+                        <!--
+                                                <label jsfc="p:outputLabel" for="habilitado" value="Habilitado*" />
+                                                <select jsfc="p:selectOneMenu" id="habilitado" value="#{clienteMb.model.habilitado}" required="true" >
+                                                    <option jsfc="f:selectItem" itemValue="true" itemLabel="Sim" >Sim</option>
+                                                    <option jsfc="f:selectItem" itemValue="false" itemLabel="Não" >Não</option>
+                                                </select>
+                        -->
+                        <label jsfc="p:outputLabel" for="tipoPessoa" value="Tipo de Pessoa*" />
+                        <select jsfc="p:selectOneMenu" id="tipoPessoa" value="#{clienteMb.tipoPessoa}" required="true" >
+                            <option jsfc="f:selectItems" value="#{dataProviderMb.tiposPessoa}" var="item" itemValue="#{item}" itemLabel="#{item.label}" ></option>
+                            <p:ajax event="change" update="@form" process="@form" listener="#{clienteMb.onChangeTipoPessoa}" ></p:ajax>
+                        </select>
+
+                        <div jsfc="h:panelGroup" rendered="#{'FISICA' eq clienteMb.tipoPessoa}">
+                            <ui:decorate template="/WEB-INF/templates/pessoa/formPessoaFisica.xhtml"  />
+                        </div>
+                        <div jsfc="h:panelGroup" rendered="#{'JURIDICA' eq clienteMb.tipoPessoa}">    
+                            <ui:decorate template="/WEB-INF/templates/pessoa/formPessoaJuridica.xhtml" />
+                        </div>    
+
+                    </div>
+                </p:tab>
+                <p:tab title="Endereço*" >
+                    <ui:param name="formEnderecoModel" value="#{clienteMb.enderecoModel}"></ui:param>
+                    <ui:param name="formEnderecoModelRequired" value="#{param['javax.faces.source'] eq 'crudForm:btnSalvar'}"></ui:param>
+                    <div jsfc="f:subview" id="enderecoCliente" >
+                        <div jsfc="h:panelGroup" id="containerEnderecoCliente">
+                            <ui:decorate template="/WEB-INF/templates/endereco/formEndereco.xhtml"  >
+                                <ui:define  name="cep">
+                                    <h:panelGrid columns="2">
+                                        <p:inputMask mask="99999999" id="cep" value="#{formEnderecoModel.endereco.cep}" title="Cep" style="width:200px;"
+                                                     required="#{formEnderecoModelRequired}">
+
+                                        </p:inputMask>
+                                        <h:commandButton type="button" value="Buscar Endereço" class="btn btn-primary" >
+                                            <f:ajax event="click" listener="#{clienteMb.preencherEnderecoCliente}" execute="enderecoCliente:containerEnderecoCliente"  render="enderecoCliente:containerEnderecoCliente" ></f:ajax>
+                                        </h:commandButton>
+                                    </h:panelGrid>
+                                </ui:define>
+                            </ui:decorate>
+                        </div>
+                    </div>
+                </p:tab>
+                <p:tab title="Contatos">
+                    <ui:param name="formContatoModel" value="#{clienteMb.formContatoModel}"></ui:param>
+                    <ui:param name="formContatoModelRequired" value="#{param['javax.faces.source'] eq 'crudForm:tabView1:contatoCliente:btnAdicionar'}"></ui:param>
+                    <div jsfc="f:subview" id="contatoCliente" >
+                        <div jsfc="h:panelGroup" id="containerContatosCliente">
+                            <ui:decorate template="/WEB-INF/templates/telefone/formContatos.xhtml"  >
+
+                                <ui:define name="btnAdicionar">
+                                    <button jsfc="h:commandButton" id="btnAdicionar" value="Adicionar" class="btn btn-primary">
+                                        <f:ajax event="click" listener="#{formContatoModel.addContato}" execute="contatoCliente:containerContatosCliente"  render="contatoCliente:containerContatosCliente" ></f:ajax>
+                                    </button>
+                                </ui:define>
+
+                                <ui:define name="contatoAcoes">
+                                    <p:menuButton value="Ações" class="btn-primary">
+                                        <p:menuitem value="Editar"  update="crudForm:tabView1:contatoCliente:containerContatosCliente" icon="fa fa-edit" process="crudForm:tabView1:contatoCliente:containerContatosCliente" actionListener="#{formContatoModel.addEditar(item,index)}" />
+                                        <p:menuitem value="Remover"  update="crudForm:tabView1:contatoCliente:containerContatosCliente" icon="fa fa-remove" process="crudForm:tabView1:contatoCliente:containerContatosCliente" actionListener="#{formContatoModel.addRemover(item,index)}" >
+                                            <p:confirm header="Confirmação" message="Deseja continuar?" icon="pi pi-exclamation-triangle"/>
+
+                                        </p:menuitem>
+                                    </p:menuButton>
+                                </ui:define>
+                            </ui:decorate>
+                        </div>
+                    </div>
+                </p:tab>
+            </p:tabView>
+        </p:panel>
+        <p:spacer height="10"></p:spacer>
+        <ui:decorate template="formResponsavel.xhtml" />
+    </div>
+
+</ui:component>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <!-- Bootstrap -->
+    <link href="#{request.contextPath}/resources/loja/css/bootstrap-4.3.1.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link href="#{request.contextPath}/resources/loja/css/estilos.css" rel="stylesheet"/>
+    <!-- Font Awesome - Load all styles -->
+    <link href="#{request.contextPath}/resources/loja/css/all.css" rel="stylesheet"/>
+
+
+    <!-- Custom styles for this template -->
+    <link href="#{request.contextPath}/resources/loja/css/pricing.css" rel="stylesheet" />
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        .ui-state-error{
+            border-color: #ffb157!important;
+            background-color: #FDFFDF!important;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+          $("#head").find("link").each(function (i, e) {
+            if (e.href.search("theme.css.xhtml") > -1) {
+              e.remove();
+            }
+          })
+        });
+    </script>
+</ui:component>

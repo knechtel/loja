@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/loja/base.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="perfil" value="#{perfilMb.perfilAtual}"></ui:param>
+    <ui:param name="menuSelect" value="planos"></ui:param>
+
+    <ui:define name="conteudo">
+        <div class="planos-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Planos</h1>
+            <p class="lead">Nossos planos de contratação.<br/>
+            </p>
+        </div>
+
+        <!-- Linha Margem 1 -->
+        <div class="container">
+            <div class="row pt-3 pb-3">
+                <div class="col">&nbsp;</div>
+            </div>
+        </div>
+        <!-- Linha Planos Pré-Pago 5 Colunas -->
+        <div class="row" style="margin-left: 0px; margin-right: 0px">
+            <div class="col-md-12 bg-light">
+                <div class="content pb-4">
+                    <div style="display: block; margin: auto" class="text-center">
+                        <h4 class="pt-4">PLANOS PÓS-PAGO MENSAL</h4>
+                        <p> Encontre a melhor opção para o seu negócio.<br/>
+                            Planos no formato Pós-pago, adaptáveis para atender a produtores e empreendedores.<br/>
+                            Com a <b>ACNF </b>e <b>ACNF Agro</b>, você tem planos com emissão de NF-e ilimitada.<br/>
+                            Encontre o modelo que melhor atende o seu negócio:<br/>
+                        </p>
+                    </div>
+                    <div class="row pt-4 pb-4">
+                        <div class="col-sm" style="padding-right: 5px; padding-left: 5px;">
+                            <div class="card card-alt-300 shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title">BÁSICO</h4>
+                                    <hr/>
+                                    <p class="card-text">
+                                        <small>Valor:</small><br/>
+                                        <b>R$ 40,00</b><br/>
+                                        <small>Valor da Guarda:</small><br/>
+                                        <b>R$ 0,00</b><br/>
+                                        <small>Valor da Consulta:</small><br/>
+                                        <b>R$ 0,00</b><br/>
+                                        <small>Suporte via Chat:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Suporte via Telefone:</small><br/>
+                                        <b>R$ 0,00</b><br/>
+                                        <small>Quantidade de Notas:</small><br/>
+                                        <b>Ilimitado</b><br/>
+                                        <small>Tempo:</small><br/>
+                                        <b>12 Meses</b><br/>
+                                        <h5 class="p-2 backg-valor-1">R$ 600,00</h5>
+                                    </p>
+                                    <hr/>
+                                    <a href="#" class="card-link" target="_self"><button type="button" class="btn bt-comprar botao-100pc">Contratar</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm" style="padding-right: 5px; padding-left: 5px;">
+                            <div class="card card-alt-300 shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title">PRATA</h4>
+                                    <hr/>
+                                    <p class="card-text">
+                                        <small>Valor:</small><br/>
+                                        <b>R$ 40,00</b><br/>
+                                        <small>Valor da Guarda:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Valor da Consulta:</small><br/>
+                                        <b>R$ 0,00</b><br/>
+                                        <small>Suporte via Chat:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Suporte via Telefone:</small><br/>
+                                        <b>R$ 0,00</b><br/>
+                                        <small>Quantidade de Notas:</small><br/>
+                                        <b>Ilimitado</b><br/>
+                                        <small>Tempo:</small><br/>
+                                        <b>12 Meses</b><br/>
+                                        <h5 class="p-2 backg-valor-1">R$ 720,00</h5>
+                                    </p>
+                                    <hr/>
+                                    <a href="#" class="card-link" target="_self"><button type="button" class="btn bt-comprar botao-100pc">Contratar</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm" style="padding-right: 5px; padding-left: 5px;">
+                            <div class="card card-alt-300 shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title">OURO</h4>
+                                    <hr/>
+                                    <p class="card-text">
+                                        <small>Valor:</small><br/>
+                                        <b>R$ 40,00</b><br/>
+                                        <small>Valor da Guarda:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Valor da Consulta:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Suporte via Chat:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Suporte via Telefone:</small><br/>
+                                        <b>R$ 0,00</b><br/>
+                                        <small>Quantidade de Notas:</small><br/>
+                                        <b>Ilimitado</b><br/>
+                                        <small>Tempo:</small><br/>
+                                        <b>12 Meses</b><br/>
+                                        <h5 class="p-2 backg-valor-1">R$ 840,00</h5>
+                                    </p>
+                                    <hr/>
+                                    <a href="#" class="card-link" target="_self"><button type="button" class="btn bt-comprar botao-100pc">Contratar</button></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm" style="padding-right: 5px; padding-left: 5px;">
+                            <div class="card card-alt-300 shadow">
+                                <div class="card-body">
+                                    <h4 class="card-title">DIAMANTE</h4>
+                                    <hr/>
+                                    <p class="card-text">
+                                        <small>Valor:</small><br/>
+                                        <b>R$ 40,00</b><br/>
+                                        <small>Valor da Guarda:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Valor da Consulta:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Suporte via Chat:</small><br/>
+                                        <b>R$ 10,00</b><br/>
+                                        <small>Suporte via Telefone:</small><br/>
+                                        <b>R$ 20,00</b><br/>
+                                        <small>Quantidade de Notas:</small><br/>
+                                        <b>Ilimitado</b><br/>
+                                        <small>Tempo:</small><br/>
+                                        <b>12 Meses</b><br/>
+                                        <h5 class="p-2 backg-valor-1">R$ 1.080,00</h5>
+                                    </p>
+                                    <hr/>
+                                    <a href="#" class="card-link" target="_self"><button type="button" class="btn bt-comprar botao-100pc">Contratar</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha Margem 2 -->
+
+        <div class="container">
+            <div class="row pt-3 pb-3">
+                <div class="col">&nbsp;</div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

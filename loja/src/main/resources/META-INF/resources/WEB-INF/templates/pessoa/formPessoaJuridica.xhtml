@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <ui:insert name="nomeFantasiaPessoaJuriridica">
+        <label jsfc="p:outputLabel" for="nomeFantasiaPessoaJuriridica" value="Nome Fantasia*" />
+        <input jsfc="p:inputText" id="nomeFantasiaPessoaJuriridica" value="#{formPessoaJuridicaModel.nomeFantasia}" label="Nome Fantasia" required="#{formPessoaJuridicaModelRequired}"  />
+    </ui:insert>
+
+
+    <ui:insert name="razaoSocialPessoaJuriridica">
+        <label jsfc="p:outputLabel" for="razaoSocialPessoaJuriridica" value="Razão Social*" />
+        <input jsfc="p:inputText" id="razaoSocialPessoaJuriridica" value="#{formPessoaJuridicaModel.razaoSocial}" label="Razão Social" required="#{formPessoaJuridicaModelRequired}"  />
+    </ui:insert>
+
+
+    <ui:insert name="emailPessoaJuridiica">
+        <label jsfc="p:outputLabel" for="emailPessoaJuridiica" value="Email*" />
+        <input jsfc="p:inputText" id="emailPessoaJuridiica" value="#{formPessoaJuridicaModel.email}" label="Email" required="#{formPessoaJuridicaModelRequired}" />
+    </ui:insert>
+
+    <ui:insert name="cnpjPessoaJuridiica">
+        <label jsfc="p:outputLabel" for="cnpjPessoaJuridiica" value="Cnpj*" />
+        <input jsfc="p:inputMask" id="cnpjPessoaJuridiica" value="#{formPessoaJuridicaModel.cnpj}" label="Cnpj" required="#{formPessoaJuridicaModelRequired}"
+               mask="99.999.999.9999/99"/>
+    </ui:insert>
+
+</ui:component>

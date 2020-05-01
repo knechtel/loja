@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head id="head" jsfc="h:head">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" ></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1" ></meta>
+        <title>#{perfilMb.perfilAtual eq 'acnf'? 'ACNF' : 'ACNF agro'} e-nota fiscal</title>
+
+        <ui:include src="includesHeader.xhtml" />
+
+        <ui:insert name="conteudoCabecalho"></ui:insert>
+    </head>
+    <body id="bodyContainer">
+        <form jsfc="h:form" id="formIndex">
+            <h:commandScript actionListener="#{perfilMb.mudarPerfil()}" name="mudarPerfil"></h:commandScript>
+            <ui:insert name="menu">
+                <!-- Top Logo e Menu -->
+                <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+                    <img jsfc="h:graphicImage" rendered="#{perfilMb.perfilAtual eq 'acnf'}" value="resources/loja/img/logo_acnf_top.png" class="img-fluid my-0 mr-md-auto" />
+                    <img jsfc="h:graphicImage" rendered="#{perfilMb.perfilAtual eq 'agro'}" value="resources/loja/img/logo_acnf_agro_top.png" class="img-fluid my-0 mr-md-auto" />
+                    <nav class="my-2 my-md-0 mr-md-3">
+                        <a jsfc="h:commandLink" class="p-2 text-dark" action="index.xhtml?faces-redirect=true"
+                           style="#{(menuSelect eq null or menuSelect eq 'index')?'font-weight:bold':''}" imediate="true"
+                           >
+                            Apresentação
+                        </a>
+                        <a jsfc="h:commandLink" class="p-2 text-dark" style="#{menuSelect eq 'empresa'?'font-weight:bold':''}" action="empresa.xhtml?faces-redirect=true" imediate="true">Empresa
+                        </a>
+                        <a jsfc="h:commandLink" class="p-2 text-dark" style="#{menuSelect eq 'suporte'?'font-weight:bold':''}" action="suporte.xhtml?faces-redirect=true" imediate="true" >Suporte
+                        </a>
+                        <a jsfc="h:commandLink" class="p-2 text-dark" style="#{menuSelect eq 'planos'?'font-weight:bold':''}" action="planos.xhtml?faces-redirect=true" imediate="true">Planos
+                        </a>
+                        <a jsfc="h:commandLink" class="p-2 text-dark" style="#{menuSelect eq 'pedidos'?'font-weight:bold':''}" action="pedidos.xhtml?faces-redirect=true" imediate="true">Contrato
+                        </a>
+                    </nav>
+                    <a href="/admin/login.xhtml" class="btn btn-outline-primary">Login</a>
+                </div>
+            </ui:insert>
+            <ui:insert name="conteudo">
+
+            </ui:insert>
+
+            <ui:insert name="rodape">
+                <div class="bg-dark" style="width: 100%">
+                    <div class="content">
+                        <div class="row bg-dark">
+                            <div class="col-md-6 padding-col bg-dark text-light">
+                                UMA SOLUÇÃO<br/>
+                                <br/>
+                                <img jsfc="h:graphicImage" value="resources/loja/img/logo_acertsis_branco.png" class="img-fluid my-0 mr-md-auto" />
+                            </div>
+                            <div class="col-md-6 padding-col bg-dark text-light">
+                                <h3>Nossos contatos</h3>
+                                <p class="paragrafo-contatos">
+                                    <i class="fas fa-map-marker-alt"></i> Rua General Andrade Neves 90, sala 2 - Centro Histórico - Porto Alegre/RS - 90020-023<br/>
+                                    <i class="fas fa-phone-square-alt"></i> (51) 3025-7600<br/>
+                                    <i class="fas fa-envelope-square"></i> contato@acertsis.com.br<br/>
+                                </p>
+                                <i class="fab fa-facebook" style="font-size: 30px; padding:2%"></i>
+                                <i class="fab fa-instagram" style="font-size: 30px; padding:2%"></i>
+                                <i class="fab fa-whatsapp" style="font-size: 30px; padding:2%"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destaque 7 - Footer -->
+                <div class="row backg-azul-esc" style="margin-left: 0px; margin-right: 0px">
+                    <div class="col-md-12 text-white text-center">
+                        <br/><small>Desenvolvido por:</small><br/>
+                        Acertsis Desenvolvimento de Sistemas LTDA &copy; 2019<br/>
+                        <a href="http://www.acertsis.com.br" class="link-branco-12" target="_blank">www.acertsis.com.br</a><br/>
+                        <br/>
+                    </div>
+                </div>
+            </ui:insert>
+        </form>
+        <ui:decorate rendered="#{showDialogTemplates}" template="dialogTemplate.xhtml"></ui:decorate>
+
+        <ui:include src="includesBottom.xhtml" />
+    </body>
+
+</html>
+

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:panelGroup id="enderecoContainer">
+
+        <div class="row">
+            <div class="col-md-12 pb-4">
+                <h4>Endereços</h4>
+                <hr/>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="cep">CEP:</label>
+                    <h:panelGrid columns="2">
+                        <input jsfc="p:inputText" value="#{solicitarParceriaMb.enderecoPessoaFisica.cep}"
+                               required="#{param['formIndex:fisica:enviarCadPessoaFisica'] ne null}"
+                               type="text" class="form-control" id="cep" />
+                        <p:commandButton value="Pesquisar" styleClass="btn btn-primary" process="enderecoContainer" update="enderecoContainer"
+                                         actionListener="#{solicitarParceriaMb.preencherEnderecoPessoaFisica}" onstart="startStatus()" oncomplete="stopStatus()" ></p:commandButton>
+                    </h:panelGrid>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="enderecoPessoaFisica">Endereço:</label>
+                    <input jsfc="p:inputText" value="#{solicitarParceriaMb.enderecoPessoaFisica.rua}"
+                           required="#{param['formIndex:fisica:enviarCadPessoaFisica'] ne null}"
+                           type="text" class="form-control" id="enderecoPessoaFisica"/>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="numero">Número:</label>
+                    <input jsfc="p:inputText" value="#{solicitarParceriaMb.enderecoPessoaFisica.numero}"
+                           required="#{param['formIndex:fisica:enviarCadPessoaFisica'] ne null}"
+                           type="text" class="form-control" id="numero" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="complemento">Complemento:</label>
+                    <input jsfc="p:inputText" value="#{solicitarParceriaMb.enderecoPessoaFisica.complemnto}" type="text" class="form-control" id="complemento" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label jsfc="h:outputLabel" for="bairro">Bairro:</label>
+                    <input jsfc="p:inputText" value="#{solicitarParceriaMb.enderecoPessoaFisica.bairro}"
+                           required="#{param['formIndex:fisica:enviarCadPessoaFisica'] ne null}"
+                           type="text" class="form-control" id="bairro" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="cidade">Cidade:</label>
+                    <input jsfc="p:inputText" value="#{solicitarParceriaMb.enderecoPessoaFisica.cidade}"
+                           required="#{param['formIndex:fisica:enviarCadPessoaFisica'] ne null}"
+                           type="text" class="form-control" id="cidade" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <h:selectOneMenu value="#{solicitarParceriaMb.enderecoPessoaFisica.estado}" required="#{param['formIndex:fisica:enviarCadPessoaFisica'] ne null}" id="estado" 
+                                     class="form-control">
+                        <f:selectItems value="#{dataProviderMb.estados}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado.sigla}" ></f:selectItems>
+                    </h:selectOneMenu>
+                </div>
+            </div>
+        </div>
+    </h:panelGroup>
+
+</ui:component>

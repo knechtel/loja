@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    <hr/>
+
+    <div class="row">
+        <div class="col-md-12 pb-4">
+            <h6>Dados Bancários</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>Tipo de conta:</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12 pb-4">
+            <h:selectOneRadio value="#{modelRefBanc.tipoContaBancariaEnum}">
+                <f:selectItems value="#{dataProviderMb.tipoContaBancariaEnum}" var="item" itemLabel="#{item.label}" itemValue="#{item}" />
+                <f:ajax event="change" execute="@this" render="dadosBanco"></f:ajax>
+            </h:selectOneRadio>
+        </div>
+    </div>
+
+    <div class="row" jsfc="h:panelGroup" id="dadosBanco">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="bandeira">Titular da conta:</label>
+                <input jsfc="p:inputText" value="#{modelRefBanc.titular}" type="text" class="form-control" id="titular"/>
+            </div></div>
+        <div class="col-md-6">
+            <div class="form-group" jsfc="h:panelGroup" rendered="#{modelRefBanc.tipoContaBancariaEnum eq 'FISICA'}" >
+                <label for="cpfTitular">CPF do titular:</label>
+                <input jsfc="p:inputMask" mask="999.999.999-99" value="#{modelRefBanc.cpfCnpj}" type="text" class="form-control" id="cpfTitular"/>
+            </div>
+            <div class="form-group" jsfc="h:panelGroup" rendered="#{modelRefBanc.tipoContaBancariaEnum eq 'JURIDICA'}" >
+                <label for="cnpjTitular">Cnpj do titular:</label>
+                <input jsfc="p:inputMask" mask="99.999.999.9999-99"  value="#{modelRefBanc.cpfCnpj}" type="text" class="form-control" id="cnpjTitular"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nome">Banco:</label>
+                <input jsfc="p:inputText" value="#{modelRefBanc.banco}" type="text" class="form-control" id="complement"/>
+            </div></div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="email">Operação:</label>
+                <input jsfc="p:inputText" value="#{modelRefBanc.operacao}" type="text" class="form-control" id="bairro"/>
+            </div></div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nome">Agência:</label>
+                <input jsfc="p:inputText" value="#{modelRefBanc.agencia}" type="text" class="form-control" id="cidade"/>
+            </div></div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="email">Conta: (X=0)</label>
+                <input jsfc="p:inputText" value="#{modelRefBanc.conta}" type="text" class="form-control" id="estado"/>
+            </div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            &nbsp;
+        </div>
+        <div class="col-md-9">
+            <p><small><span class="text-danger">Atenção:</span> Informar somente números. Operação deve ser informado somente no caso da Caixa Econômica Federal.</small>
+            </p>
+        </div>			
+    </div>
+
+    <hr/>
+</ui:component>

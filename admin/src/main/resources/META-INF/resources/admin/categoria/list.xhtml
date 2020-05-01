@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+
+    <p:dataTable  value="#{categoriaMb.lista}" var="item" paginator="true" rows="5" emptyMessage="Nenhum registro." 
+                  styleClass="table table-striped tabela-prod-azul"   >
+
+        <p:column headerText="Nome" >
+            <p:outputLabel value="#{item.nome}" />
+        </p:column>
+
+        <p:column headerText="Descrição">
+            <p:outputLabel value="#{item.descricao}" />
+        </p:column>
+
+        <p:column headerText="Ações">
+            <p:commandButton value="Editar" actionListener="#{categoriaMb.edit(item.idCategoria)}" ajax="true" process="@this" update="@form" >
+            </p:commandButton>
+            <p:commandButton value="Excluir" actionListener="#{categoriaMb.delete(item.idCategoria)}" ajax="true"  process="@this" update="@form" >
+                <p:confirm header="Confirmação" message="Deseja continuar?" icon="pi pi-exclamation-triangle"  />
+            </p:commandButton>
+        </p:column>
+
+    </p:dataTable>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"  icon="pi pi-check" ajax="true"  process="@this" update="@form" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+    </p:confirmDialog>
+</ui:component>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Confirmação de Parceria - Acertsis</title>
+
+
+        <style>
+
+            .top-image {
+                background-image: url("http://demo.acnf.com.br/email_acertsis/top_parceria_ok.jpg");
+                background-color: #0a2143;
+                height: 192px;
+                background-position: center top;
+                background-repeat: no-repeat;
+                /* background-size: cover;  Resize the background image to cover the entire container */
+            }
+
+            .tit-1 {
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+                font-size: 22px;
+                color: #216788;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .txt-1 {
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+                font-size: 14px;
+                line-height: 20px;
+                color: #000000;
+            }
+
+            .txt-2 {
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+                font-size: 11px;
+                line-height: 16px;
+                color: #000000;
+                text-align: center;
+            }
+
+            .msg {
+                display: block;
+                margin: auto;
+                width: 80%;
+            }
+
+            .linkAzul {
+                font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+                font-size: 12px;
+                font-weight: bold;
+                color: #26569e;
+                text-decoration: underline;
+            }
+
+        </style>	
+
+    </head>
+    <body>
+        <#if notificarAcertsis == true>
+        <table style="width: 100%; padding: 0px; margin: 0px; border-collapse: collapse">	
+            <tr>
+                <td style="height: 5px; background-color: #b6ddf0">
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 88px; text-align: center">
+                    <img src="http://demo.acnf.com.br/email_acertsis/logo_acertsis.jpg"></td>
+            </tr>
+            <tr>
+                <td class="top-image">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="msg">
+                        <h1 class="tit-1">Recebemoos um novo contato.</h1>
+                        <table border="2" cellspacing="1">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Tipo Mensagem</th>
+                                    <th>Mensagem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${formContato.nome}</td>
+                                    <td>${formContato.email}</td>
+                                    <td>${formContato.tipoMensagem.label}</td>
+                                    <td>${formContato.mensagem}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 44px; background-color: #f5e4cb; text-align: right; padding-right: 25px;">
+                    <a href="http://www.acnf.com.br" class="linkAzul" target="_blank">www.acertsis.com.br</a> | <a href="http://www.acnf.com.br" class="linkAzul" target="_blank">www.acnf.com.br</a></td>
+            </tr>
+        </table>
+
+        </#if>
+        <#if notificarAcertsis == false>
+        <table style="width: 100%; padding: 0px; margin: 0px; border-collapse: collapse">	
+            <tr>
+                <td style="height: 5px; background-color: #b6ddf0">
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 88px; text-align: center">
+                    <img src="http://demo.acnf.com.br/email_acertsis/logo_acertsis.jpg"></td>
+            </tr>
+            <tr>
+                <td class="top-image">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="msg">
+                        <h1 class="tit-1">Olá ${formContato.nome}</h1>
+                        OBRIGADO pelo seu contato em breve entraremos em contato.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 44px; background-color: #f5e4cb; text-align: right; padding-right: 25px;">
+                    <a href="http://www.acnf.com.br" class="linkAzul" target="_blank">www.acertsis.com.br</a> | <a href="http://www.acnf.com.br" class="linkAzul" target="_blank">www.acnf.com.br</a></td>
+            </tr>
+        </table>
+        </#if>
+    </body>
+
+</html>

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    <p:panel toggleableHeader="true"  toggleTitle="Adicionar Endereço"  collapsed="#{formEnderecoModel.multiplosEnderecos}" toggleable="#{formEnderecoModel.multiplosEnderecos}" header="Adicionar Endereço"
+             toggleOrientation="horizontal">
+        <p:panelGrid id="formEndereco" columns="2"  layout="grid" >
+            <p:panelGrid columns="1"  layout="grid">
+                <p:outputLabel value="Cep*" for="cep" />
+                <ui:insert  name="cep">
+                    <p:inputMask mask="99999999" id="cep" value="#{formEnderecoModel.endereco.cep}" title="Cep" style="width:200px;"
+                                 required="#{formEnderecoModelRequired}"/>
+                </ui:insert>
+                <p:outputLabel value="Rua*" for="rua" />
+                <p:inputText id="rua" value="#{formEnderecoModel.endereco.rua}" title="Rua" required="#{formEnderecoModelRequired}" />
+
+                <p:outputLabel value="Numero*" for="numero" />
+                <h:inputText id="numero" value="#{formEnderecoModel.endereco.numero}" title="Numero" required="#{formEnderecoModelRequired}"/>
+
+                <p:outputLabel value="Complemento" for="complemnto" />
+                <p:inputText id="complemnto" value="#{formEnderecoModel.endereco.complemnto}" title="Complemnto"  />
+
+            </p:panelGrid>
+            <p:panelGrid columns="1"  layout="grid">
+                <p:outputLabel value="Bairro*" for="bairro" />
+                <p:inputText id="bairro" value="#{formEnderecoModel.endereco.bairro}" title="Bairro" required="#{formEnderecoModelRequired}" />
+
+                <p:outputLabel value="Cidade*" for="cidade" />
+                <p:inputText id="cidade" value="#{formEnderecoModel.endereco.cidade}" title="Cidade" required="#{formEnderecoModelRequired}" />
+
+                <p:outputLabel value="Estado*" for="estado" />
+                <p:inputText id="estado" value="#{formEnderecoModel.endereco.estado}" title="Estado" required="#{formEnderecoModelRequired}" />
+            </p:panelGrid>
+        </p:panelGrid>
+
+        <h:panelGroup rendered="#{formEnderecoModel.multiplosEnderecos}">
+            <hr/>
+            <ui:insert name="btnAdicionarEndereco" >
+                <h:commandButton type="button"  value="Adicionar" styleClass="btn btn-primary"
+                                 actionListener="#{formEnderecoModel.addEndereco}"></h:commandButton>
+            </ui:insert>
+        </h:panelGroup>
+    </p:panel>
+
+    <p:spacer height="10" ></p:spacer>
+
+    <p:panel header="Endereços Cadastrados" rendered="#{formEnderecoModel.multiplosEnderecos}">
+        <p:dataTable id="enderecos" value="#{formEnderecoModel.enderecos}" var="item" emptyMessage="Nenhum endereço adicionado"
+                     styleClass="table table-striped tabela-prod-azul" rowIndexVar="index">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Rua"/>
+                </f:facet>
+                <h:outputText value="#{item.rua}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Complemnto"/>
+                </f:facet>
+                <h:outputText value="#{item.complemnto}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Cep"/>
+                </f:facet>
+                <h:outputText value="#{item.cep}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Número"/>
+                </f:facet>
+                <h:outputText value="#{item.numero}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Bairro"/>
+                </f:facet>
+                <h:outputText value="#{item.bairro}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Cidade"/>
+                </f:facet>
+                <h:outputText value="#{item.cidade}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Estado"/>
+                </f:facet>
+                <h:outputText value="#{item.estado}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Ações"/>
+                </f:facet>
+                <ui:insert name="enderecosAcoes">
+                    <p:menuButton value="Ações" class="btn-primary">
+                        <p:menuitem value="Editar"  update="messages" icon="fa fa-edit" process="@:enderecos @:formEndereco" actionListener="#{formEnderecoModel.addEditar(item,index)}" />
+                        <p:menuitem value="Remover"  update="messages" icon="fa fa-remove" process="@:enderecos @:formEndereco" actionListener="#{formEnderecoModel.addRemover(item,index)}" />
+                    </p:menuButton>
+                </ui:insert>
+            </p:column>
+
+        </p:dataTable>
+    </p:panel>
+</ui:component>

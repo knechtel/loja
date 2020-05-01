@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <p:panelGrid columns="1" layout="grid">
+        <p:outputLabel value="Número de Parcelas" for="numParcelas" />
+        <p:selectOneMenu id="numParcelasBoleto" value="#{vendaMb.dadosVendaDTO.numParcelas}"  title="Número de Parcelas" 
+                         required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}"  >
+            <f:selectItems value="#{dataProviderMb.parcelasCartao}" var="item" itemValue="#{item}" itemLabel="#{item}"  />
+            <f:ajax event="change" execute="@this" render="@form" listener="#{vendaMb.onChangeNumeroParcelas}" ></f:ajax>
+        </p:selectOneMenu>
+    </p:panelGrid>
+</ui:component>

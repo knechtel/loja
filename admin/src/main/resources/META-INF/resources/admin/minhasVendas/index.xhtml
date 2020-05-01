@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/admin/base.xhtml"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="body">
+        <style>
+            .ui-rowgroup-header{
+                background-color: #ECF0F5;
+            }
+            details{
+                margin: 2px;
+            }
+
+            details[open], details[open] div{
+                background-color: #ECF0F5!important;
+            }
+            details summary{
+                text-decoration:underline #007cbe;
+                color:#007cbe;
+                text-align: center
+            }
+            details[open] summary{
+                color: white;
+                font-weight: bold;
+                background-color: #007cbe;
+            }
+            details summary:hover{
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            function exibirDetalhesPlano() {
+              PF('dialogDetalhesContrato').show();
+            }
+        </script>
+        <p:panel header="Minhas Vendas" >
+            <h:form id="minhasVendas">
+                <p:panel style="background-color: #F9F9FA;">
+                    <p:panelGrid columns="1" layout="grid">
+                        <label jsfc="h:outputLabel">Pesquisa pelo cliente</label>
+                        <p:autoComplete id="cliente" widgetVar="cliente" forceSelection="true" placeholder="Pesquisar Cliente" dropdown="true" 
+                                        value="#{gerenciarVendaMb.clienteSelecionado}"  completeMethod="#{gerenciarVendaMb.buscarClienteAutoComplete}"
+                                        var="item" itemLabel="#{item.pessoa.nome}" itemValue="#{item}" converter="#{clienteConverter}"  >
+                            <f:ajax  event="itemSelect" execute="@form" render="@form" listener="#{gerenciarVendaMb.onChangeCliente}" />
+                        </p:autoComplete>
+                    </p:panelGrid>
+                </p:panel>
+                <p:panel>
+
+                    <p:dataTable value="#{gerenciarVendaMb.contratoList}" var="contrato"
+                                 emptyMessage="Nenhum Registro" styleClass="table table-striped tabela-prod-azul" rows="5" paginator="true" >
+
+                        <f:facet name="header">
+                            <h:outputText rendered="#{gerenciarVendaMb.clienteSelecionado ne null}" value="Vendas para o cliente #{gerenciarVendaMb.clienteSelecionado.pessoa.nome}"></h:outputText>
+                        </f:facet>
+
+                        <p:column>
+                            <p:rowToggler />
+                        </p:column>
+
+                        <p:column  headerText="Número do Contrato">
+                            <h:outputText value="#{contrato.idContrato}"></h:outputText>
+                        </p:column>
+
+                        <p:column  headerText="Plano">
+                            <h:outputText value="#{contrato.plano.nome}"></h:outputText>
+                        </p:column>
+
+                        <p:column  headerText="Data Inicio">
+                            <h:outputText value="#{utilMb.formatLocalDate(contrato.dtInicio, 'dd/MM/yyyy')}" />
+                        </p:column>
+
+                        <p:column  headerText="Data de Término">
+                            <h:outputText value="#{utilMb.formatLocalDate(contrato.dtFim, 'dd/MM/yyyy')}" />
+                        </p:column>
+
+                        <p:column  headerText="Valor Total">
+                            <h:outputText value="#{utilMb.formatMoney(contrato.valorTotal, true)}" title="Valor Total" />
+                        </p:column>
+
+                        <p:column  headerText="Número de Parcelas">
+                            <h:outputText value="#{contrato.numParcelas}"></h:outputText>
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <p:dataTable value="#{gerenciarVendaMb.findMensalidadesByContrato(contrato)}" var="mensalidade" emptyMessage="Nenhum Registro" styleClass="table table-striped tabela tabela-prod-cinza" > 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Parcela"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.parcela}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Valor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.valor}">
+                                        <f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Status"/>
+                                    </f:facet>
+                                    <details>
+                                        <summary title="Clique para visualizar mais detalhes.">#{mensalidade.status.status}</summary>
+                                        <p:panelGrid columns="1" layout="grid" rendered="#{'CARTAO_CREDITO' eq mensalidade.meioPagamento}">
+                                            <h:outputText value="Número Autorização"/>
+                                            <h:outputText value="#{mensalidade.pagamento.numeroAutorizacao}" title="Número de Autorizacao"/>
+                                            <h:outputText value="Cod Autorização"/>
+                                            <h:outputText value="#{mensalidade.pagamento.codAutorizacao}" title="Código de Autorizacao"/>
+                                            <h:outputText value="Identificador Pedido"/>
+                                            <h:outputText value="#{mensalidade.pagamento.identificadorPedido}" title="Identificador Pedido"/>
+                                            <h:outputText value="Código de Retorno"/>
+                                            <h:outputText value="#{mensalidade.pagamento.codRetorno}" title="Código Retorno"/>
+                                            <h:outputText value="Mensagem Retorno"/>
+                                            <h:outputText value="#{mensalidade.pagamento.mensagemRetorno}" title="Mensagem de Retorno"/>
+                                            <h:outputText value="Data Retorno"/>
+                                            <h:outputText value="#{utilMb.formatLocalDate(mensalidade.pagamento.dtRetorno, 'dd/MM/yyyy')}" title="DtRetorno"/>
+                                            <h:outputText value="Status Transaction"/>
+                                            <h:outputText value="#{mensalidade.pagamento.statusTransaction}" title="StatusTransaction"/>
+                                            <h:outputText value="Data Proxima Recorrência"/>
+                                            <h:outputText value="#{utilMb.formatLocalDate(mensalidade.pagamento.dtProximaRecorrencia, 'dd/MM/yyyy')}" title="DtProximaRecorrencia"/>
+                                            <h:outputText value="Dados Recorrência"/>
+                                            <h:outputText value="#{mensalidade.pagamento.dadosRecorrencia}" title="Dados Recorrência"/>
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" rendered="#{'BOLETO' eq mensalidade.meioPagamento}">
+                                            <h:outputText value="RefTran"/>
+                                            <h:outputText value="#{mensalidade.pagamento.refTran}" title="RefTran"/>
+                                            <h:outputText value="Valor Pago"/>
+                                            <h:outputText value="#{mensalidade.pagamento.valorPago}" title="Valor Pago">
+                                                <f:convertNumber pattern="R$ #,##0.00"></f:convertNumber>
+                                            </h:outputText>
+                                        </p:panelGrid>                                        
+                                    </details>
+
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Data de Vencimento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{utilMb.formatLocalDate(mensalidade.dtVencimento, 'dd/MM/yyyy')}" >
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Meio de Pagamento"/>
+                                    </f:facet>
+                                    <h:outputText value="#{mensalidade.meioPagamento.tipo}"/>
+                                </p:column>
+
+
+                            </p:dataTable>
+                        </p:rowExpansion>
+                    </p:dataTable>
+
+                </p:panel>
+                <p:dialog id="dialogDetalhesContrato" widgetVar="dialogDetalhesContrato" header="Detalhes do Contrato" modal="true" resizable="true"
+                          closable="true"   >
+                    <p:panel id="dialogDetalhesContratoContainer" header="" >
+                        <p:panelGrid columns="1" layout="grid" >
+
+                            <p:outputLabel value="Plano" for="plano" />
+                            <h:outputText id="plano" value="#{gerenciarVendaMb.contrato.plano.nome}" />
+
+                            <p:outputLabel value="Cliente" for="clienteContrato" />
+                            <h:outputText id="clienteContrato" value="#{gerenciarVendaMb.contrato.cliente.pessoa.nome}" />
+
+                            <p:outputLabel value="Data de Inicio" for="dtInicio" />
+                            <h:outputText id="dtInicio" value="#{utilMb.formatLocalDate(gerenciarVendaMb.contrato.dtInicio, 'dd/MM/yyyy')}" title="DtInicio" />
+
+                            <p:outputLabel value="Data de Término" for="dtFim" />
+                            <h:outputText id="dtFim" value="#{utilMb.formatLocalDate(gerenciarVendaMb.contrato.dtFim, 'dd/MM/yyyy')}" title="DtFim" />
+
+                            <p:outputLabel value="Valor Total" for="valorTotal" />
+                            <h:outputText id="valorTotal" value="#{utilMb.formatMoney(gerenciarVendaMb.contrato.valorTotal, true)}" title="Valor Total" />
+
+                            <p:outputLabel value="Número de Parcelas" for="numParcelas" />
+                            <h:outputText id="numParcelas" value="#{gerenciarVendaMb.contrato.numParcelas}" title="Número de Parcelas" />
+
+                            <p:outputLabel value="Valor Parcela" for="valParcela" />
+                            <h:outputText id="valParcela" value="#{utilMb.formatMoney(gerenciarVendaMb.contrato.valorTotal/gerenciarVendaMb.contrato.numParcelas, true)}" title="Número de Parcelas" />
+
+                            <p:outputLabel value="Tipo de Pagamento" for="tipoPagamento" />
+                            <h:outputText id="tipoPagamento" value="#{gerenciarVendaMb.contrato.tipoPagamento.tipo}" title="Tipo de Pagamento" />
+
+                        </p:panelGrid>
+                    </p:panel>
+                </p:dialog>
+            </h:form>
+        </p:panel>
+
+    </ui:define>
+</ui:composition>
+
+
+
+
+

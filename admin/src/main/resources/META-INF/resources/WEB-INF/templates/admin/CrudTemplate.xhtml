@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/admin/base.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="body">
+        <form jsfc="h:form" id="crudForm" >
+            <f:passThroughAttribute name="autocomplete" value="off" />
+            <p:panel header="#{managedBean.title}" >
+                <h:panelGroup rendered="#{managedBean.state eq 2 or managedBean.state eq 3}">
+                    <ui:insert name="btnListar">
+                        <button id="btnList" jsfc="p:commandButton" value="Listar" actionListener="#{managedBean.list()}"
+                                ajax="true" update="@form" process="@this"
+                                styleClass="btn-primary" style="margin-top: 2px;margin-bottom: 2px;"  />
+                    </ui:insert>
+
+                    <ui:insert name="createEdit"></ui:insert>
+
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{managedBean.state eq 1}">
+                    <ui:insert  name="btnNovo">
+                        <button id="btnNovo" jsfc="p:commandButton" value="Novo"  actionListener="#{managedBean.create()}" ajax="true" update="@form"
+                                styleClass="btn-primary" />
+                    </ui:insert>
+                    <ui:insert name="list"></ui:insert>
+                </h:panelGroup>
+
+            </p:panel>
+            <p:panel style="margin-top: 2px;" rendered="#{managedBean.state eq 2 or managedBean.state eq 3}">
+                <ui:insert name="btnSalvar">
+                    <button jsfc="p:commandButton" id="btnSalvar" value="Salvar" update="@form" process="@form" actionListener="#{managedBean.save()}"
+                            styleClass="btn-primary" />
+                </ui:insert>
+            </p:panel>
+        </form>
+    </ui:define>
+</ui:composition>

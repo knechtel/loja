@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <div class="ui-fluid">
+        <input jsfc="h:inputHidden" value="#{crudModuloMb.model.idModulo}"  />
+        <div jsfc="p:panelGrid" columns="1" layout="grid">
+
+            <label jsfc="p:outputLabel" for="habilitado" value="Habilitado*" />
+
+            <select jsfc="p:selectOneMenu" id="habilitado" value="#{crudModuloMb.model.habilitado}" required="true" >
+                <option jsfc="f:selectItem" itemValue="true" itemLabel="Sim" >Sim</option>
+                <option jsfc="f:selectItem" itemValue="false" itemLabel="Não" >Não</option>
+            </select>
+
+            <label jsfc="p:outputLabel" for="nome" value="Nome*" />
+            <input jsfc="p:inputText" id="nome" value="#{crudModuloMb.model.nome}" label="Nome" required="true" />
+            <!--
+            <label jsfc="p:outputLabel" for="valor" value="Valor*" />
+            <input jsfc="p:inputText" class="moneyInput" id="valor"  label="Valor" required="true" onfocus="adicionarMascaraDinheiro()" >
+                <f:convertNumber  locale="pt_BR" pattern="#,##0.00" ></f:convertNumber>
+            </input>
+            -->
+            <label jsfc="p:outputLabel" for="descricao" value="Descrição*" />
+            <input jsfc="p:inputTextarea" id="descricao" value="#{crudModuloMb.model.descricao}" label="Descrição" required="true" />                
+        </div>
+    </div>
+
+</ui:component>

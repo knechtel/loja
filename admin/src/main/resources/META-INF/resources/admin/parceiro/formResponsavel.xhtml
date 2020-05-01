@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+    <p:panel header="Responsável" toggleable="true" >
+        <f:subview id="responsavel">
+            <ui:decorate template="/WEB-INF/templates/pessoa/formPessoaFisica.xhtml">
+                <ui:define name="nomePessoaFisica">
+                    <label jsfc="p:outputLabel" for="nomePessoaFisica" value="Nome" />
+                    <input jsfc="p:inputText" id="nomePessoaFisica" value="#{crudParceiroMb.model.responsavel.nome}" label="Nome"   />
+                </ui:define>
+
+                <ui:define name="emailPessoaFisica">
+                    <label jsfc="p:outputLabel" for="emailPessoaFisica" value="Email" />
+                    <input jsfc="p:inputText" id="emailPessoaFisica" value="#{crudParceiroMb.model.responsavel.email}" label="Email"  >
+                    </input>                    
+                </ui:define>
+
+                <ui:define name="cpfPessoaFisica">
+                    <label jsfc="p:outputLabel" for="cpfPessoaFisica" value="Cpf" />
+                    <input jsfc="p:inputMask" id="cpfPessoaFisica" value="#{crudParceiroMb.model.responsavel.cpf}" label="Cpf"
+                           mask="999.999.999-99"/>
+                </ui:define>
+
+                <ui:define name="dataNascimentoPessoaFisica">
+                    <label jsfc="p:outputLabel" for="dataNascimentoPessoaFisica" value="Data Nascimento" />
+                    <input jsfc="p:calendar"  id="dataNascimentoPessoaFisica" value="#{crudParceiroMb.model.responsavel.dtNascimento}" label="Data Nascimento"
+                           mask="true" pattern="dd/MM/yyyy" converter="#{primefacesCalendarLocalDateConverter}" >
+                    </input>
+                </ui:define>
+            </ui:decorate>
+        </f:subview>
+    </p:panel>
+
+</ui:component>

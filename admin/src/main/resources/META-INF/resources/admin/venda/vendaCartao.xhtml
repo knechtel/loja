@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core"  >
+
+    <p:panelGrid columns="2" layout="grid">
+        <p:panelGrid columns="1" layout="grid">
+            <p:outputLabel value="Número Cartão" for="numero"  />
+            <p:inputText id="numero" value="#{vendaMb.dadosVendaDTO.cartaoCreditoDTO.numero}" title="Número" required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}" >
+            </p:inputText>
+        </p:panelGrid>
+
+        <p:panelGrid columns="1" layout="grid">
+            <p:outputLabel value="Bandeira" for="bandeira" />
+            <p:selectOneMenu  id="bandeira"  value="#{vendaMb.dadosVendaDTO.cartaoCreditoDTO.bandeira}"  title="Bandeira" required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}">
+                <f:selectItems value="#{dataProviderMb.banderiasCartao}" var="item" itemLabel="#{item}" itemValue="#{item}" />
+            </p:selectOneMenu>
+        </p:panelGrid>
+    </p:panelGrid>
+
+    <p:panelGrid columns="2" layout="grid">
+        <p:panelGrid columns="1" layout="grid">
+            <p:outputLabel value="Títular" for="titular" />
+            <p:inputText id="titular"  value="#{vendaMb.dadosVendaDTO.cartaoCreditoDTO.titular}" title="Títular" required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}" />
+        </p:panelGrid>
+
+        <p:panelGrid columns="1" layout="grid">
+            <p:outputLabel value="Código de Seguranca" for="codSeguranca" />
+            <p:inputNumber id="codSeguranca" value="#{vendaMb.dadosVendaDTO.cartaoCreditoDTO.codSeguranca}" title="Código de Seguranca" required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}" >
+            </p:inputNumber>
+        </p:panelGrid>
+    </p:panelGrid>
+
+    <p:panelGrid columns="2" layout="grid">
+        <p:panelGrid columns="1" layout="grid">
+            <p:outputLabel value="Mês de Vencimento" for="mesVencimento" />
+            <p:selectOneMenu id="mesVencimento"  value="#{vendaMb.dadosVendaDTO.cartaoCreditoDTO.mesVencimento}" title="Mês de Vencimento"
+                             required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}">
+                <f:selectItems value="#{dataProviderMb.mesesVencimentoCartao}" var="item" itemValue="#{item}" itemLabel="#{item}"  />
+            </p:selectOneMenu>
+        </p:panelGrid>
+
+        <p:panelGrid columns="1" layout="grid">
+            <p:outputLabel value="Ano de Vencimento" for="anoVencimento" />
+            <p:selectOneMenu id="anoVencimento" value="#{vendaMb.dadosVendaDTO.cartaoCreditoDTO.anoVencimento}" title="Ano de Vencimento" 
+                             required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}">
+                <f:selectItems value="#{dataProviderMb.anosVencimentoCartao}" var="item" itemValue="#{item}" itemLabel="#{item}"  />
+            </p:selectOneMenu>
+
+            <p:panelGrid columns="1" layout="grid">
+                <p:outputLabel value="Número de Parcelas" for="numParcelas" />
+                <p:selectOneMenu id="numParcelas" value="#{vendaMb.dadosVendaDTO.numParcelas}" title="Número de Parcelas"
+                                 required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}">
+                    <f:selectItems  value="#{dataProviderMb.parcelasCartao}"  var="item" itemValue="#{item}" itemLabel="#{item}"  />
+                    <f:ajax event="change" execute="@form" render="@form" listener="#{vendaMb.onChangeNumeroParcelas}" ></f:ajax>
+
+                </p:selectOneMenu>
+            </p:panelGrid>
+        </p:panelGrid>
+    </p:panelGrid>
+
+</ui:component>

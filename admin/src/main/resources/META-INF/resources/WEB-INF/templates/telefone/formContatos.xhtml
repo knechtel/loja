@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    <p:panel toggleableHeader="true"  toggleTitle="Adicionar Contato" toggleable="true" header="Adicionar Contato" collapsed="true"
+             toggleOrientation="horizontal">
+        <p:inputText type="hidden" id="idTelefone" value="#{formContatoModel.contato.idTelefone}" title="IdTelefone" />
+
+        <p:panelGrid columns="1" layout="grid">
+
+            <p:outputLabel value="Tipo Telefone*" for="tipoTelefone" />
+            <select jsfc="p:selectOneMenu" id="tipoTelefone" value="#{formContatoModel.contato.tipoTelefone}"  required="#{formContatoModelRequired}" >
+                <f:selectItems value="#{dataProviderMb.tipoTelefones}" var="item" itemLabel="#{item.label}" itemValue="#{item}"></f:selectItems>
+            </select>
+
+            <p:outputLabel value="Número*" for="numero" />
+            <p:inputMask mask="(99)99999-9999" size="14" autoClear="false"  id="numero" value="#{formContatoModel.contato.numero}" title="Número" required="#{formContatoModelRequired}"  />
+        </p:panelGrid>
+
+        <hr/>
+        <ui:insert name="btnAdicionar">
+            <h:commandButton type="button"  value="Adicionar" styleClass="btn btn-primary"
+                             actionListener="#{formContatoModel.addContato}"></h:commandButton>
+        </ui:insert>
+    </p:panel>
+
+    <p:spacer height="10" ></p:spacer>
+
+    <p:panel header="Contatos Cadastrados">
+        <p:dataTable id="enderecos" value="#{formContatoModel.contatos}" var="item" emptyMessage="Nenhum contato adicionado"
+                     styleClass="table table-striped tabela-prod-azul" rowIndexVar="index">
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="TipoTelefone"/>
+                </f:facet>
+                <h:outputText value="#{item.tipoTelefone.label}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Numero"/>
+                </f:facet>
+                <h:outputText value="#{item.numero}"/>
+            </p:column>
+
+            <p:column width="200">
+                <f:facet name="header">
+                    <h:outputText value="Ações"/>
+                </f:facet>
+                <ui:insert name="contatoAcoes">
+                    <p:menuButton value="Ações" class="btn-primary">
+                        <p:menuitem value="Editar"  update="Sobrescreva este ui:insert!!" icon="fa fa-edit" process="Sobrescreva este ui:insert!!" actionListener="#{formContatoModel.addEditar(item,index)}" />
+                        <p:menuitem value="Remover"  update="Sobrescreva este ui:insert!!" icon="fa fa-remove" process="Sobrescreva este ui:insert!!" actionListener="#{formContatoModel.addRemover(item,index)}" />
+                    </p:menuButton>
+                </ui:insert>
+            </p:column>
+
+        </p:dataTable>
+    </p:panel>
+
+</ui:component>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user"></i>
+                <span class="hidden-xs"> #{sessionMB.usuarioLogado.nome}</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-footer">
+                    <h:form prependId="false">
+                        <div class="pull-left">
+                            <p:commandLink  styleClass="btn btn-danger" value="Mudar Senha" onclick="PF('dialogMudarSenha').show()"/>
+                        </div>
+                        <div class="pull-right">
+                            <p:link styleClass="btn btn-primary" id="logout" title="Logoff" href="/logout">
+                                <i class="fa fa-hand-o-left"></i>
+                                Sair
+                            </p:link>
+                        </div>
+                    </h:form>
+                </li>
+            </ul>
+        </li>
+
+
+    </ul>
+
+    <p:dialog id="dialogMudarSenha" widgetVar="dialogMudarSenha" header="Mudar Senha" resizable="false" modal="false">
+        <form  id="formMudarSenha" jsfc="h:form" class="ui-fluid">
+            <p:messages severity="error"></p:messages>
+            <div  jsfc="p:panelGrid" columns="1"   layout="grid" >
+                <h:outputLabel value="Senha Atual"></h:outputLabel>
+                <input jsfc="h:inputSecret" value="#{sessionMB.senhaAtual}" placeHolder="Senha Atual" required="true" requiredMessage="Senha atual obrigatória"></input>
+                <h:outputLabel value="Nova Senha"></h:outputLabel>
+                <input jsfc="h:inputSecret" value="#{sessionMB.senha}" placeHolder="Nova Senha" required="true" requiredMessage="Senha nova obrigatória" ></input>
+                <h:outputLabel value="Confirmação Nova Senha"></h:outputLabel>
+                <input jsfc="h:inputSecret" value="#{sessionMB.senhaConfirmacao}" placeHolder="Senha Confirmação" required="true" requiredMessage="Confirmação Nova Senha é obrigatória"  ></input>
+                <button jsfc="p:commandButton" class="btn-primary" ajax="true" process="@form" update="@form" value="Mudar Senha" actionListener="#{sessionMB.mudarSenha()}" ></button>
+            </div>
+        </form>
+    </p:dialog>
+
+</ui:composition>

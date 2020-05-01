@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/loja/base.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="perfil" value="#{perfilMb.perfilAtual}"></ui:param>
+    <ui:param name="menuSelect" value="pedidos"></ui:param>
+
+    <ui:define name="conteudo">
+
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Contrato</h1>
+            <p class="lead">Consulte aqui a situação de seus pedidos em aberto, favor entrar com suas informações no formulário abaixo para pesquisar no sistema.</p>
+        </div>
+
+        <!-- Destaque 4 - Linha 2 colunas produtos -->
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12 padding-col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-Login">
+                                <!-- Form Consulta Pedidos-->
+                                <div class="form-group">
+                                    <label for="usr"><b>CPF:</b></label>
+                                    <input jsfc="p:inputText"  value="#{contratacaoMb.cpf}" type="text" class="form-control" id="usr" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd"><b>Número do contrato:</b></label>
+                                    <input jsfc="h:inputText" type="password" value="#{contratacaoMb.contrato}" class="form-control" id="pwd"/>
+                                </div>
+                                <div class="form-group">
+                                    <a href="det_pedido.html" target="_self"><button jsfc="h:commandLink" action="#{contratacaoMb.doSearch}" type="button" class="btn btn-primary">Consultar</button></a>
+                                </div>
+                                <!--
+                                <br/>
+                                <p class="card-text"><small>• Ainda não é um usuário cadastrado? <a href="cadastro.html" target="_self">Clique aqui</a> para criar o seu cadastro.</small></p>
+                                <br/>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

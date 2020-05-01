@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/admin/base.xhtml"
+
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="body">
+        <style type="text/css">
+            .label {
+                width:20%;
+                padding:4px;
+            }
+
+            .value {
+                width:80%;
+                padding:4px;
+            }
+
+            .grid {
+                width:100%;
+            }
+
+            .error {
+                color: red;
+            }
+
+            .outputLabel {
+                font-weight: bold;
+            }
+
+            .grid {
+                width:33%;
+                padding:4px;
+            }
+
+            .ui-wizard-step-titles{
+                background-color: #ECF0F5;
+            }
+            .headerBlue .ui-widget-header{
+                background-color: #3c8dbc!important;
+            }
+            .headerBlue .ui-panel-title{
+                color: white!important;
+            }
+        </style>
+
+
+        <p:panel header="Venda em alguns cliques" >
+            <h:form id="formVenda">
+                <h:panelGroup rendered="#{not vendaMb.vendaFinalizadaComSucesso}">
+                    <p:wizard id="wizardVenda" flowListener="#{vendaMb.onFlowProcess}"  nextLabel="Próximo" backLabel="Voltar" >
+                        <p:tab id="clienteTab" title="Selecione o Cliente" >
+                            <p:panel style="background-color: #F9F9FA;">
+                                <p:autoComplete id="cliente" widgetVar="cliente" forceSelection="true" placeholder="Pesquisar Cliente" dropdown="true" value="#{vendaMb.dadosVendaDTO.clienteSelecionado}"  completeMethod="#{vendaMb.completeTextNomeCliente}"
+                                                var="item" itemLabel="#{item.pessoa.nome}"  itemValue="#{item}" converter="#{clienteConverter}" required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}" >
+                                </p:autoComplete>
+                            </p:panel>
+
+                        </p:tab>
+                        <p:tab id="produtoTab" title="Selecione o Produto">
+                            <p:panel>
+                                <p:selectOneMenu id="produto" value="#{vendaMb.dadosVendaDTO.produtoSelecionado}" converter="#{produtoConverter}" 
+                                                 required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}">
+                                    <f:selectItem noSelectionOption="true" itemValue="#{null}" itemLabel="Selecione" />
+                                    <f:selectItems value="#{dataProviderMb.produtos}" var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}" ></f:selectItems>
+                                    <f:ajax event="change" execute="@this" render="@form" listener="#{vendaMb.onChangeProduto}"></f:ajax>
+                                </p:selectOneMenu>
+                            </p:panel>
+                            <p:panel rendered="#{vendaMb.dadosVendaDTO.produtoSelecionado ne null}">
+                                <h2>#{vendaMb.dadosVendaDTO.produtoSelecionado.nome}</h2>
+                                <h5>#{vendaMb.dadosVendaDTO.produtoSelecionado.descricao}</h5>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="planoTab" title="Selecione o Plano">
+                            <p:panel>
+                                <p:selectOneMenu id="plano" value="#{vendaMb.dadosVendaDTO.planoSelecionado}" converter="#{planoConverter}" 
+                                                 required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}" >
+                                    <f:selectItem noSelectionOption="true" itemValue="#{null}" itemLabel="Selecione"  />
+                                    <f:selectItems value="#{vendaMb.planos}" var="item" itemLabel="#{item.nome}" itemValue="#{item}" />
+                                    <f:ajax event="change" execute="@this" render="@form" listener="#{vendaMb.onChangePlano}"></f:ajax>
+                                </p:selectOneMenu>
+                            </p:panel>
+                            <hr/>
+                            <h:panelGroup rendered="#{vendaMb.dadosVendaDTO.planoSelecionado ne null}">
+                                <p:panel header="Detalhes do Plano" >
+                                    <h2>#{vendaMb.dadosVendaDTO.planoSelecionado.nome}</h2>
+                                    <h5>#{vendaMb.dadosVendaDTO.planoSelecionado.descricao}</h5>
+                                    <h3>#{utilMb.formatMoney(vendaMb.calcularValorPlanoPelaRegraComissao(vendaMb.dadosVendaDTO.planoSelecionado), true)}</h3>
+
+                                    <p:panelGrid columns="2" layout="grid">
+                                        <p:dataTable value="#{vendaMb.dadosVendaDTO.planoSelecionado.listProduto}" var="item" >
+                                            <f:facet name="header">
+                                                <h:outputText value="Produtos Incluídos"/>
+                                            </f:facet>
+                                            <p:column>
+                                                <h:outputText value="#{item.nome}"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{item.descricao}"/>
+                                            </p:column>
+                                        </p:dataTable>
+
+                                        <p:dataTable value="#{vendaMb.dadosVendaDTO.planoSelecionado.modulos}" var="item" class="table-bordered">
+                                            <f:facet name="header">
+                                                <h:outputText value="Módulos Incluídos"/>
+                                            </f:facet>
+                                            <p:column>
+                                                <h:outputText value="#{item.nome}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <h:outputText value="#{item.descricao}"/>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </h:panelGroup>
+                        </p:tab>
+                        <p:tab id="formaPagamentoTab" title="Forma de Pagamento" >
+                            <p:panel>
+                                <p:panelGrid columns="1" layout="grid">
+                                    <p:selectOneRadio value="#{vendaMb.dadosVendaDTO.pagamentoEnum}" required="#{param['javax.faces.source'] eq 'formVenda:wizardVenda'}">
+                                        <f:selectItems value="#{dataProviderMb.meiosPagamentos}" var="item" itemLabel="#{item.tipo}" itemValue="#{item}"></f:selectItems>
+                                        <f:ajax event="change" listener="#{vendaMb.onChangeMeioPagamento()}" render="@form" execute="@this" />
+                                    </p:selectOneRadio>
+                                </p:panelGrid>
+                            </p:panel>
+
+                            <p:panelGrid rendered="#{'CARTAO_CREDITO' eq vendaMb.dadosVendaDTO.pagamentoEnum}">
+                                <ui:include src="vendaCartao.xhtml" ></ui:include>
+                            </p:panelGrid>
+
+                            <p:panelGrid rendered="#{'BOLETO' eq vendaMb.dadosVendaDTO.pagamentoEnum}">
+                                <ui:include src="vendaBoleto.xhtml"></ui:include>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="finalizarTab" title="Finalizar">
+                            <p:panel header="Resumo da Contratação">
+                                <f:subview id="subViewResumoContrato">
+                                    <p:panelGrid columns="2" >
+                                        <p:outputLabel value="Plano" for="plano" />
+                                        <h:outputText id="plano" value="#{vendaMb.contrato.plano.nome}" />
+
+                                        <p:outputLabel value="Cliente" for="cliente" />
+                                        <h:outputText id="cliente" value="#{vendaMb.contrato.cliente.pessoa.nome}" />
+
+                                        <p:outputLabel value="Data de Inicio" for="dtInicio" />
+                                        <h:outputText id="dtInicio" value="#{utilMb.formatLocalDate(vendaMb.contrato.dtInicio, 'dd/MM/yyyy')}" title="DtInicio" />
+
+                                        <p:outputLabel value="Data de Término" for="dtFim" />
+                                        <h:outputText id="dtFim" value="#{utilMb.formatLocalDate(vendaMb.contrato.dtFim, 'dd/MM/yyyy')}" title="DtFim" />
+
+                                        <p:outputLabel value="Valor Total" for="valorTotal" />
+                                        <h:outputText id="valorTotal" value="#{utilMb.formatMoney(vendaMb.contrato.valorTotal, true)}" title="Valor Total" />
+
+                                        <p:outputLabel value="Número de Parcelas" for="numParcelas" />
+                                        <h:outputText id="numParcelas" value="#{vendaMb.contrato.numParcelas}" title="Número de Parcelas" />
+
+                                        <p:outputLabel value="Valor Parcela" for="valParcela" />
+                                        <h:outputText id="valParcela" value="#{utilMb.formatMoney(vendaMb.contrato.valorTotal/vendaMb.contrato.numParcelas, true)}" title="Número de Parcelas" />
+
+                                        <p:outputLabel value="Tipo de Pagamento" for="tipoPagamento" />
+                                        <h:outputText id="tipoPagamento" value="#{vendaMb.contrato.tipoPagamento.tipo}" title="Tipo de Pagamento" />
+                                    </p:panelGrid>
+                                </f:subview>
+                            </p:panel>
+                            <p:panel>
+                                <div class="form-group">
+                                    <label for="termos">Termos de uso:</label>
+                                    <textarea class="form-control" cols="30" rows="5" id="termos" >TERMO de CESSÃO de DIREITO de USO de SOFTWARE
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.
+                                    </textarea>
+
+                                </div>
+                                <h5>
+                                    <h:outputText value="Aceita os termos?"></h:outputText>
+                                    <p:inputSwitch value="#{vendaMb.dadosVendaDTO.aceito}" offLabel="Não" onLabel="Sim" required="true" >
+                                        <f:ajax event="change" render="@form" execute="@this"  />
+                                    </p:inputSwitch>
+                                </h5>
+
+
+                            </p:panel>
+                            <hr/>
+                            <div class="pull-right" >
+                                <p:commandButton rendered="#{vendaMb.dadosVendaDTO.aceito}" process="@this" update="@form" class="btn btn-primary" value="Finalizar" actionListener="#{vendaMb.finalizarVenda}">
+                                </p:commandButton>
+                            </div>
+                        </p:tab>
+                    </p:wizard>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{vendaMb.vendaFinalizadaComSucesso}">
+                    <p:panel style="background-color:#ECF0F5;" >
+                        <h:panelGrid columns="3" >
+                            <i class="fa fa-check" style="font-size:48px;color:green"></i>
+                            <h:outputText style="font-weight: bold; font-size: 20px;" value="Venda realizada com sucesso."></h:outputText>
+                        </h:panelGrid>
+                    </p:panel>
+                    <hr/>
+                    <p:commandButton value="Nova Venda" class="btn btn-primary" process="@form dialogBoleto" update="@form" actionListener="#{vendaMb.addNovaVenda}"></p:commandButton>
+
+
+                </h:panelGroup>
+                <p:dialog id="dialogBoleto" widgetVar="dialogBoleto" closable="true" modal="true" resizable="false">
+                    <p:commandButton value="Imprimir Boleto" ajax="false" class="btn btn-primary"  >
+                        <p:fileDownload value="#{vendaMb.downloadBoleto}"  />
+                    </p:commandButton>
+                </p:dialog>
+            </h:form>
+        </p:panel>
+    </ui:define>
+</ui:composition>

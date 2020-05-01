@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:p="http://primefaces.org/ui" 
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/loja/base.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="perfil" value="#{perfilMb.perfilAtual}"></ui:param>
+    <ui:define name="conteudo">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <p class="lead"><i class="fas fa-check-circle fa-2x text-primary"></i></p>
+            <h1 class="display-4">Envio concluído!</h1>
+            <br/>
+            <p class="lead">
+                <b>Recebemos com sucesso a sua solicitação para tornar-se um parceiro.</b></p>
+        </div>
+        <!-- Destaque 4 - Linha 2 colunas produtos -->
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12 padding-col text-center">
+                    <p class="paragrafo-apres-azul pt-5 pb-5">Seu pedido de cadastro será avaliado pela nossa equipe responsável e será dada uma resposta o mais breve possível.<br/>
+                        Agradecemos desde já o seu interesse.<br/>
+                        <br/>
+                        <a href="index.xhtml"><i class="fas fa-home"></i> Voltar para a página inicial</a><br/>
+                        <br/>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

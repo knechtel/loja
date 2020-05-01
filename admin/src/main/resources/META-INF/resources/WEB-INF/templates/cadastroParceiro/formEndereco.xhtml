@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    <ui:define name="model">
+        <ui:param name="modelEndereco" value="#{solicitarParceriaMb}"></ui:param>
+    </ui:define>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.cep}" type="text" class="form-control" id="cep"/>
+            </div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.rua}" type="text" class="form-control" id="endereco"/>
+            </div></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.numero}" type="text" class="form-control" id="numero"/>
+            </div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="complemento">Complemento:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.complemnto}" type="text" class="form-control" id="complemento"/>
+            </div></div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="email">Bairro:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.bairro}" type="text" class="form-control" id="bairro"/>
+            </div></div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nome">Cidade:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.cidade}" type="text" class="form-control" id="cidade"/>
+            </div></div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="email">Estado:</label>
+                <input jsfc="p:inputText" value="#{modelEndereco.estado}" type="text" class="form-control" id="estado"/>
+            </div></div>
+    </div>
+
+
+</ui:component>

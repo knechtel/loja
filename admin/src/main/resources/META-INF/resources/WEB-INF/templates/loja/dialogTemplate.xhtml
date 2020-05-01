@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html" 
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:adm="http://github.com/adminfaces"                    
+              xmlns:f="http://xmlns.jcp.org/jsf/core" >
+
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalFinalizarCompra" aria-labelledby="myExtraLargeModalLabel" data-backdrop="static" aria-hidden="true" style="margin-right: 100px;">
+        <div class="modal-dialog" style="width:150%" >
+            <div class="modal-content" style="width:150%">
+                <form id="formDialogLoja" jsfc="h:form" >
+                    <ui:decorate template="formPagamento.xhtml"></ui:decorate>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalImprimirBoleto"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" >
+            <div class="modal-content">
+                <form id="formImprimirBoleto" jsfc="h:form" >
+                    <div class="alert alert-success" style="margin-bottom: 0px;" role="alert">
+                        <h4 class="alert-heading">Pagamento Realizado com sucesso!</h4>
+                        <p>Você receberá um email de confirmação.</p>
+                        <hr/>
+                        <p:commandButton rendered="#{not (planoMb.downloadBoleto eq null)}" onclick="fecharImprimirBoleto();" value="Imprimir Boleto" ajax="false" class="btn bt-comprar botao-100pc" >
+                            <p:fileDownload value="#{planoMb.downloadBoleto}"  />
+                        </p:commandButton>      
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"  tabindex="-1" role="dialog" id="modalErroPagamento"  data-backdrop="static" aria-hidden="true" >
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <form id="formErroPagamento" jsfc="h:form" >
+                    <div class="alert alert-danger" style="margin-bottom: 0px;" role="alert">
+                        <h4 class="alert-heading">Erro ao tentar realizar o pagamento.!</h4>
+                        <p>Desculpe, tente mais tarde.</p>
+                        <hr/>
+                        <p:commandButton value="Fechar" ajax="true" oncomplete="fechaErroPagamento();" class="btn bt-comprar botao-100pc" >
+
+                        </p:commandButton>      
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalStatus" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="d-flex justify-content-center text-primary">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:component>
