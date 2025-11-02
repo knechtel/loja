@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Filtro por Data de Entrada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    label {
+      font-weight: bold;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #388E3C;
+    }
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Filtrar Equipamentos por Data de Saída</h2>
+
+    <label for="dataEntrada">Selecione a Data de Saída:</label>
+    <input type="date" id="dataEntrada" />
+
+    <button onclick="buscarEquipamentos()">Buscar</button>
+ <a class="botao-voltar" href="https://sftcode.com/app/main.html">⬅ Voltar para a Tela Principal</a>
+    <table id="tabela">
+      <thead>
+        <tr>
+          <th>OS</th>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th>Modelo</th>
+          <th>Data Entrada</th>
+          <th>Data Saida</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    function buscarEquipamentos() {
+      const data = document.getElementById("dataEntrada").value;
+        console.log("aqui   ---- ",data)
+      if (!data) {
+        alert("Selecione uma data!");
+        return;
+      }
+
+  fetch(`https://sftcode.com/controller/equipment_controller_web_find_departure_date.php?entry_date=${data}`).then(res => res.json())
+        .then(dados => {
+          const tbody = document.querySelector("#tabela tbody");
+          tbody.innerHTML = "";
+
+          dados.forEach(eq => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${eq.client_id}</td>
+              <td>${eq.id}</td>
+              <td>${eq.description}</td>
+              <td>${eq.model}</td>
+              <td>${eq.entry_date}</td>
+              <td>${eq.departure_date}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(err => {
+          console.error("Erro:", err);
+          alert("Erro ao buscar equipamentos.");
+        });
+    }
+  </script>
+</body>
+</html>

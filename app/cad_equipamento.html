@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Aparelho</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #388E3C;
+    }
+    .msg {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cadastro de Aparelho</h2>
+    <form id="formAparelho">
+      <label>ID do Cliente:</label>
+      <input type="number" id="client_id" required />
+
+      <label>Descrição:</label>
+      <textarea id="description" required></textarea>
+
+      <label>Modelo:</label>
+      <input type="text" id="model" required />
+
+      <label>Serial:</label>
+      <input type="text" id="serial" required />
+
+      <label>Marca:</label>
+      <input type="text" id="brand" required />
+
+      <label>Defeito:</label>
+      <textarea id="defect_defect_for_repair" required></textarea>
+
+      <label>Preço:</label>
+      <input type="number" step="0.01" id="price" required />
+
+      <label>Entregue:</label>
+      <select id="entregue">
+        <option value="true">Sim</option>
+        <option value="false" selected>Não</option>
+      </select>
+
+      <label>Garantia:</label>
+      <select id="garantia">
+        <option value="true">Sim</option>
+        <option value="false" selected>Não</option>
+      </select>
+
+      <button type="submit">Cadastrar Aparelho</button>
+    </form>
+    <div class="msg" id="mensagem"></div>
+    
+        <a class="botao-voltar" href="https://sftcode.com/app/main.html">⬅ Voltar para a Tela Principal</a>
+  </div>
+
+  <script>
+    document.getElementById("formAparelho").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const dados = new URLSearchParams();
+      dados.append("client_id", document.getElementById("client_id").value);
+      dados.append("description", document.getElementById("description").value);
+      dados.append("model", document.getElementById("model").value);
+      dados.append("serial", document.getElementById("serial").value);
+      dados.append("brand", document.getElementById("brand").value);
+      dados.append("defect_defect_for_repair", document.getElementById("defect_defect_for_repair").value);
+      dados.append("price", parseFloat(document.getElementById("price").value));
+      dados.append("entregue", document.getElementById("entregue").value);
+      dados.append("garantia", document.getElementById("garantia").value);
+      dados.append("devolucao", false);
+      dados.append("autorizado", false);
+      dados.append("pronto", false);
+      dados.append("obs", "");
+
+      fetch("https://sftcode.com/controller/equipment_controller_web_insert.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: dados
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("mensagem").innerText = "✅ Aparelho cadastrado com sucesso!";
+        document.getElementById("mensagem").style.color = "green";
+        document.getElementById("formAparelho").reset();
+        console.log("Resposta do servidor:", data);
+      })
+      .catch(err => {
+        document.getElementById("mensagem").innerText = "❌ Erro ao cadastrar aparelho!";
+        document.getElementById("mensagem").style.color = "red";
+        console.error("Erro:", err);
+      });
+    });
+    console.log("aquiiiiiii.......")
+    console.log(departure_date)
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Clientes</title>
+  <style>
+   .botoes-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .botoes-container button,
+  .botoes-container a {
+    flex: 1;
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  .botoes-container button:hover,
+  .botoes-container a:hover {
+    background: #388E3C;
+  }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button, .botao-voltar {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button:hover, .botao-voltar:hover {
+      background: #388E3C;
+    }
+    .msg {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Imprimir Nota</h2>
+    <form id="formCadastro">
+      <label>OS:</label>
+      <input type="text" id="os" required />
+
+   
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div class="msg" id="mensagem"></div>
+
+    <!-- 🔗 Botão com a mesma cor do "Cadastrar" -->
+    <a  href="http://localhost/app/main.html">⬅ Voltar para a Tela Principal</a>
+  </div>
+
+  <script>
+    document.getElementById("formCadastro").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+         var campoTexto = document.getElementById("os").value;
+          window.location.href = "http://localhost/test.php?id="+campoTexto;
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Equipamentos do Cliente</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f2f2f2; }
+    h1 { text-align: center; color: #333; }
+    .botoes { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+    button { padding: 10px 20px; background-color: #007bff; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+    table { border-collapse: collapse; width: 90%; margin: auto; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #007bff; color: white; }
+  </style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
+
+  <script>
+    let dataTable;
+
+    function getClientIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('client_id');
+    }
+
+    function buscarEquipamentos() {
+      const client_id = getClientIdFromURL();
+      var name ="---";
+
+    fetch("/controller/client_controller_web_find_by_id.php?id=" + client_id)
+      .then(res => res.json())
+        .then(data => {
+            name = data.name;
+    
+        })
+      if (!client_id) {
+    
+        return;
+      }
+
+      fetch("/controller/equipment_controller_web_find_by_id.php?id=" + client_id)
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector("#tabelaEquipamentos tbody");
+          tbody.innerHTML = "";
+
+        //   if (!Array.isArray(data) || data.length === 0) {
+             tbody.innerHTML = "<tr><td colspan='6'>Nenhum equipamento encontrado para este cliente.</td></tr>";
+        //   } else {
+        //     data.forEach(eq => {
+        //      
+        //         <td>${eq.id}</td>
+        //         <td>${eq.nome}</td>
+        //         <td>${eq.tipo}</td>
+        //         <td>${eq.data_entrada}</td>
+        //         <td>${eq.data_saida || ''}</td>
+        //         <td>${eq.status}</td>
+        //       </tr>`;
+        //       tbody.insertAdjacentHTML('beforeend', tr);
+        //     });
+        //   }
+        const tr = `<tr>
+                <td>${data[0].id}</td>
+                <td>${data[0].brand}</td>
+                <td>${name}</td>
+                <td>${data[0].entry_date}</td>
+                <td>${data[0].departure_date || ''}</td>
+                <td>
+                     <button onclick="editarCliente(${client_id})">Editar</button>
+            </td> 
+            <td>
+              <button onclick="editarEquipamento(${client_id})">Editar Equipamento</button>
+            </td>
+              </tr>`;
+              tbody.insertAdjacentHTML('beforeend', tr);
+        console.log(data)
+          initDataTable();
+        })
+        .catch(err => {
+          console.error("Erro ao buscar equipamentos:", err);
+       
+        });
+    }
+
+    function initDataTable() {
+      if (dataTable) {
+        dataTable.destroy();
+      }
+      dataTable = new simpleDatatables.DataTable("#tabelaEquipamentos", {
+        searchable: true,
+        fixedHeight: true,
+        perPage: 5,
+        perPageSelect: [5, 10, 20],
+        labels: {
+          placeholder: "Buscar…",
+          perPage: "{select} registros por página",
+          noRows: "Nenhum equipamento encontrado",
+          info: "{start} a {end} de {rows} registros"
+        }
+      });
+    }
+
+    function voltar() {
+      window.history.back();
+    }
+
+    // chama buscarEquipamentos depois que DOM estiver carregado
+    document.addEventListener("DOMContentLoaded", buscarEquipamentos);
+    function editarCliente(id) {
+  window.location.href = "https://sftcode.com/app/edit_cliente.html?id=" + id;
+}
+function editarEquipamento(id) {
+  window.location.href = "https://sftcode.com/app/edit_equipamento.html?client_id=" + id;
+}
+  </script>
+</head>
+
+<body onload="buscarEquipamentos()">
+  <h1>Equipamentos do Cliente</h1>
+
+  <div class="botoes">
+    <button onclick="voltar()">Voltar</button>
+  </div>
+
+  <table id="tabelaEquipamentos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Marca</th>
+        <th>Tipo</th>
+        <th>Data de Entrada</th>
+        <th>Data de Saída</th>
+        <th>Cliente</th>
+        <th>Equipamento</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</body>
+</html>

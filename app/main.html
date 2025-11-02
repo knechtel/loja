@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lista de Clientes</title>
+  <style>
+    /* ... seus estilos originais ... */
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f2f2f2; }
+    h1 { text-align: center; color: #333; }
+    .botoes { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+    button { padding: 10px 20px; background-color: #007bff; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+    table { border-collapse: collapse; width: 80%; margin: auto; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #007bff; color: white; }
+  </style>
+  <!-- Biblioteca Simple-DataTables -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" />
+</head>
+<body onload="buscarClientes()">
+
+  <h1>Lista de Cliente</h1>
+
+  <div class="botoes">
+  
+    <button onclick="cadastrarClientes()">Cadastrar Cliente</button>
+    <button onclick="imprimirNota()">Imprimir Nota</button>
+    <button onclick="cadastrarEquipamentos()">Cadastrar Equipamento</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <table id="tabelaClientes">
+    <thead>
+      <tr><th>ID - Os</th><th>Nome</th>   <th>Cliente</th> 
+      <th>Equipamento</th><!-- ✅ Nova coluna --></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="botoes">
+    <button onclick="filtroPorDataDeEntrada()">Filtro por data de entrada</button>
+    
+    <button onclick="filtroPorDataMaiorEquipamento()">Filtro por data maior que de entrada</button>
+  
+       <button onclick="  filtroPorDataSaidaEquipamento()">Filtro por Data de Saída</button>
+    
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" ></script>
+  <script>
+    let dataTable; // instância do DataTable
+
+    function buscarClientes() {
+      fetch("http://localhost/controller/client_controller_list.php")
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.querySelector("#tabelaClientes tbody");
+          tbody.innerHTML = "";
+          data.forEach(c => {
+            const tr = `<tr><td>${c.id}</td><td>${c.name}</td> <td>
+              <button onclick="editarCliente(${c.id})">Editar</button>
+            </td> 
+            <td>
+              <button onclick="editarEquipamento(${c.id})">Editar Equipamento</button>
+            </td>
+            </tr>`;
+            tbody.insertAdjacentHTML('beforeend', tr);
+          });
+          initDataTable();
+        })
+        .catch(err => {
+          console.error("Erro ao buscar clientes:", err);
+          alert("Erro ao carregar a lista de clientes.");
+        });
+    }
+
+    function initDataTable() {
+      if (dataTable) {
+        dataTable.destroy();
+      }
+      dataTable = new simpleDatatables.DataTable("#tabelaClientes", {
+        searchable: true,
+        fixedHeight: true,
+        perPage: 5,
+        perPageSelect: [5,10,20,50],
+        labels: {
+          placeholder: "Buscar…",
+          perPage: "{select} registros por página",
+          noRows: "Nenhum cliente encontrado",
+          info: "{start} a {end} de {rows} registros"
+        }
+      });
+    }
+    function filtroPorDataDeEntrada (){
+        
+           window.location.href = "http://localhost/app/filtro_data_entrada.html";
+    }
+
+    function cadastrarClientes() {
+      window.location.href = "http://localhost/app/cad_cliente.html";
+    }
+
+    function imprimirNota() {
+      window.location.href = "http://localhost/app/print_os.html";
+    }
+    function cadastrarEquipamentos() {
+      window.location.href = "http://localhost/app/cad_equipamento.html";
+    }
+    function logout() {
+      window.location.href = "http://localhost/";
+    }
+function editarCliente(id) {
+  window.location.href = "http://localhost/app/edit_cliente.html?id=" + id;
+}
+function editarEquipamento(id) {
+  window.location.href = "http://localhost/app/edit_equipamento.html?client_id=" + id;
+}
+function filtroPorDataMaiorEquipamento() {
+  window.location.href = "http://localhost/app/filtro_maior_data_entrada.html";
+}
+function filtroPorDataSaidaEquipamento() {
+  window.location.href = "http://localhost/app/filtro_data_saida.html";
+}
+
+
+
+  </script>
+</body>
+</html>

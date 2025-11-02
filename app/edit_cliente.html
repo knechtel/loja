@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Cliente</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button, .botao-voltar {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    button:hover, .botao-voltar:hover {
+      background: #388E3C;
+    }
+    .msg {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Editar Cliente</h2>
+    <form id="formEdicao">
+      <input type="hidden" id="id" />
+
+      <label>Nome:</label>
+      <input type="text" id="name" required />
+
+      <label>Endereço:</label>
+      <input type="text" id="address" required />
+
+      <label>CPF:</label>
+      <input type="text" id="cpf" required />
+
+      <label>RG:</label>
+      <input type="text" id="rg" required />
+
+      <label>Email:</label>
+      <input type="email" id="email" required />
+
+      <label>Telefone:</label>
+      <input type="text" id="phone" required />
+
+      <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <div class="msg" id="mensagem"></div>
+
+    <a class="botao-voltar" href="https://sftcode.com/app/main.html">⬅ Voltar para a Tela Principal</a>
+  </div>
+
+  <script>
+    // Pega o ID da URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    // Busca os dados do cliente pelo ID
+    fetch("https://sftcode.com/controller/client_controller_web_find_by_id.php?id=" + id)
+      .then(res => res.json())
+      .then(cliente => {
+        document.getElementById("id").value = cliente.id;
+        document.getElementById("name").value = cliente.name;
+        document.getElementById("address").value = cliente.address;
+        document.getElementById("cpf").value = cliente.cpf;
+        document.getElementById("rg").value = cliente.rg;
+        document.getElementById("email").value = cliente.email;
+        document.getElementById("phone").value = cliente.phone;
+      })
+      .catch(err => console.error("Erro ao carregar cliente:", err));
+
+    // Quando clicar em salvar
+    document.getElementById("formEdicao").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const dados = new URLSearchParams();
+      dados.append("id", document.getElementById("id").value);
+      dados.append("name", document.getElementById("name").value);
+      dados.append("address", document.getElementById("address").value);
+      dados.append("cpf", document.getElementById("cpf").value);
+      dados.append("rg", document.getElementById("rg").value);
+      dados.append("email", document.getElementById("email").value);
+      dados.append("phone", document.getElementById("phone").value);
+
+     fetch("https://sftcode.com/controller/client_controller_web_update.php", {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: dados
+})
+.then(async res => {
+  const data = await res.json(); // tenta ler JSON
+
+  if (!res.ok) {
+    // Se o status for 400, 500 etc, lança erro manualmente
+    throw new Error(data.message || "Erro ao atualizar cliente");
+  }
+
+  return data; // só chega aqui se res.ok for true
+})
+.then(data => {
+  document.getElementById("mensagem").innerText = data.message || "✅ Atualizado com sucesso!";
+  document.getElementById("mensagem").style.color = "green";
+})
+.catch(err => {
+  document.getElementById("mensagem").innerText = "❌ " + "Não foi possivel atualizar registro."; 
+  document.getElementById("mensagem").style.color = "red";
+});
+    });
+  </script>
+
+</body>
+</html>
