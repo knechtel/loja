@@ -109,7 +109,7 @@
     </form>
 
     <div class="msg" id="mensagem"></div>
-    <a class="botao-voltar" href="https://sftcode.com/app/main.html">⬅ Voltar para a Tela Principal</a>
+    <a class="botao-voltar" href="http://localhost/app/main.html">⬅ Voltar para a Tela Principal</a>
   </div>
 
   <script>
@@ -194,13 +194,13 @@
       dados.append("entregue", document.getElementById("entregue").value === "true" ? 1 : 0);
       dados.append("garantia", document.getElementById("garantia").value);
 
-      fetch("https://sftcode.com/controller/equipment_controller_web_update.php", {
+      fetch("http://localhost/controller/equipment_controller_web_update.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: dados
       })
       .then(res => {
-  console.log("Código de resposta:", res.status); // <- AQUI PEGA O STATUS
+  console.log("Código de resposta:", res.status +"console "+ document.getElementById("description").value,"id "+idMEu); // <- AQUI PEGA O STATUS
   if (!res.ok) {
     // Se o status for 400, 500 etc, lança erro
     throw new Error(`Erro do servidor: ${res.status}`);
