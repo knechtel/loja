@@ -142,25 +142,26 @@
     const params = new URLSearchParams(window.location.search);
     const idEquipamento = params.get("client_id");
     let idMEu = 0;
+    console.log("idEquipamento = "+idEquipamento);
 
     if (!idEquipamento) {
       alert("ID do equipamento não informado!");
     } else {
-      fetch("https://sftcode.com/controller/equipment_controller_web_find_by_id.php?id=" + idEquipamento)
+      fetch("http://localhost/controller/equipment_controller_web_find_by_id.php?id=" + idEquipamento)
         .then(res => res.json())
         .then(data => {
-          idMEu = data.id;
+          idMEu = idEquipamento;
           departure_date = data.departure_date;
-          document.getElementById("client_id").value = data.client_id;
-          document.getElementById("description").value = data.description;
-          document.getElementById("model").value = data.model;
-          document.getElementById("serial").value = data.serial;
-          document.getElementById("brand").value = data.brand;
-          document.getElementById("defect_defect_for_repair").value = data.defect_defect_for_repair;
-          document.getElementById("price").value = data.price;
+          document.getElementById("client_id").value = data[0].client_id;
+          document.getElementById("description").value = data[0].description;
+          document.getElementById("model").value = data[0].model;
+          document.getElementById("serial").value = data[0].serial;
+          document.getElementById("brand").value = data[0].brand;
+          document.getElementById("defect_defect_for_repair").value = data[0].defect_defect_for_repair;
+          document.getElementById("price").value = data[0].price;
           document.getElementById("entregue").value = data.entregue ? "true" : "false";
           document.getElementById("garantia").value = data.garantia ? "true" : "false";
-       console.log("departure");
+       console.log("departure = "+data[0].id);
        console.log(this.departure_date);
 
        
